@@ -1,2 +1,5 @@
 # local editor settings
 .idea/
+
+# virtual environments
+.venv/
