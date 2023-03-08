@@ -30,4 +30,4 @@ volk
 behandlung (erbt von durchsicht)
 
 Wichtig sind die Verknüpfungen der Datenbanken über Fremdschlüssel, die die Relationen sichern sollen und die Datenbanken vor Fehleingaben schützen, da diese 
-vor dem Commit getestet werden.
+vor dem Commit automatisch getestet werden.
