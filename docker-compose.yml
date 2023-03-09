@@ -3,6 +3,15 @@ version: '3'
 services:
   bee_back:
     build: ./bee_back
+    environment:
+      - DJANGO_SETTINGS_MODULE=bee_back.settings.development
+      - SECRET_KEY=please_change_me
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=bee_db
+      - SQL_USER=root
+      - SQL_PASSWORD=root
+      - SQL_HOST=bee_db
+      - SQL_PORT=5432
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./bee_back:/usr/src/bee_back/
