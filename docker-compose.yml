@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  bee_db:
+    image: postgres:latest
+    volumes:
+      - ./data/bee_db:/var/lib/postgres/data/
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=bee_db
