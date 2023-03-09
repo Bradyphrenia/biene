@@ -7,3 +7,7 @@
 
 # python stuff
 __pycache__/
+
+# test database
+# TODO: remove when django settings points to postgresql docker container
+db.sqlite3
