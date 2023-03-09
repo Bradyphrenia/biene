@@ -3,3 +3,7 @@
 
 # virtual environments
 .venv/
+.python-version
+
+# python stuff
+__pycache__/
