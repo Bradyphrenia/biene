@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  bee_back:
+    build: ./bee_back
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./bee_back:/usr/src/bee_back/
+    ports:
+      - 8000:8000
+    depends_on:
+      - bee_db
+
   bee_db:
     image: postgres:latest
     volumes:
@@ -9,3 +19,6 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=bee_db
+
+volumes:
+  bee_db:
