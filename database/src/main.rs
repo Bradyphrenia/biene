@@ -1,7 +1,7 @@
 use postgres::{Client, Error, NoTls};
 
 
-fn database_query(sql: &str) -> Result<() Error> {
+fn database_query(sql: &str) -> Result<(), Error> {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
     for row in client.query(sql, &[])? {
         let id: &str = row.get(0);
