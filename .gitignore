@@ -27,3 +27,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# modules
+node_modules/
+
+# rust builds
+*/target/
