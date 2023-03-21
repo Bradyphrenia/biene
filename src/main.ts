@@ -1,5 +1,8 @@
 import { createApp } from "vue";
-import "./styles.css";
+
+import "./main.less";
+
 import App from "./App.vue";
 
-createApp(App).mount("#app");
+createApp(App)
+  .mount("#app");
