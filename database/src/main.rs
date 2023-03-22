@@ -33,4 +33,3 @@ fn main() {
     let test2 = database_execute("select * from hives;").unwrap();
     println!("{}", test2)
 }
-
