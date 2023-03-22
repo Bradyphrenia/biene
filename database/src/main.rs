@@ -15,7 +15,11 @@ fn database_execute(sql: &str) -> Result<&str, Error> {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
     for row in client.query(sql, &[])? {
         for (col_idx, _col) in row.columns().iter().enumerate() {
-            let _val: &str = row.get(col_idx);
+            let _val: &str =
+                match row.get(col_idx) {  //now it works with pattern matching :-)
+                    Some(val) => val,
+                    None => ""
+                };
             print!("{} ", _val);
         }
     };

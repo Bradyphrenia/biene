@@ -27,6 +27,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/.idea/
+/database/target/
 
 # modules
 node_modules/
