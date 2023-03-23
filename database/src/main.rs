@@ -57,13 +57,22 @@ impl From<Row> for Volk {
 }
 
 
-fn database_test(sql: &str) -> Result<i32, Error> {
+fn database_test(sql: &str) -> Result<Volk, Error> {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
+    let mut result: Volk = Volk {
+        id: 0,
+        volk: "".to_string(),
+        nummer: 0,
+        koenigin: None,
+        typ: "".to_string(),
+        raehmchenmass: "".to_string(),
+        stand: "".to_string(),
+    };
     for row in client.query(sql, &[])? {
         let mut volk = Volk::from(row);
-        println!("{} {} {} {} {} ", volk.id, volk.volk, volk.nummer, volk.typ, volk.raehmchenmass)
+        result = volk
     }
-    Ok(15)  // return a test value
+    Ok(result)  // return a strukt
 }
 
 fn main() {
@@ -72,6 +81,6 @@ fn main() {
     let test2 = database_execute("select * from hives;").unwrap();
     println!("{}", test2);
     let test3 = database_test("SELECT * FROM volk").unwrap();
-    println!("{}", test3);
+    println!("{} | {} | {} | {} | {} ", test3.id, test3.volk, test3.nummer, test3.typ, test3.raehmchenmass);
 }
 
