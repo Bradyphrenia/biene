@@ -37,15 +37,56 @@ impl From<Row> for Volk {
     }
 }
 
-fn database_fetchone(sql: &str) -> Result<Volk, Error> {
+fn volk_fetchone(sql: &str) -> Result<Volk, Error> {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
     let row = client.query_one(sql, &[])?;
     let volk = Volk::from(row);
     Ok(volk) // return a strukt
 }
 
+pub struct Durchsicht {
+    pub id: i32,
+    pub datum: String,
+    pub volk: String,
+    pub koenigin: bool,
+    pub stifte: bool,
+    pub offene: bool,
+    pub verdeckelte: bool,
+    pub weiselzelle: bool,
+    pub spielnaepfe: bool,
+    pub sanftmut: i16,
+    pub volksstaerke: i16,
+    pub anz_brutwaben: i16,
+}
+
+impl From<Row> for Durchsicht {
+    fn from(row: Row) -> Self {
+        Self {
+            id: row.get("id"),
+            datum: row.get("datum"),
+            volk: row.get("volk"),
+            koenigin: row.get("koenigin"),
+            stifte: row.get("stifte"),
+            offene: row.get("offene"),
+            verdeckelte: row.get("verdeckelte"),
+            weiselzelle: row.get("weiselzelle"),
+            spielnaepfe: row.get("spielnaepfe"),
+            sanftmut: row.get("sanftmut"),
+            volksstaerke: row.get("volksstaerke"),
+            anz_brutwaben: row.get("anz_brutwaben"),
+        }
+    }
+}
+
+fn durchsicht_fetchone(sql: &str) -> Result<Durchsicht, Error> {
+    let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
+    let row = client.query_one(sql, &[])?;
+    let durchsicht = Durchsicht::from(row);
+    Ok(durchsicht) // return a strukt
+}
+
 fn main() {
-    let test3 = database_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk").unwrap();
+    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk").unwrap();
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test3.id,
@@ -58,4 +99,20 @@ fn main() {
         test3.raehmchenmass,
         test3.stand
     );
+    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht").unwrap();
+    println!(
+        "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
+        test4.id,
+        test4.datum,
+        test4.volk,
+        test4.koenigin,
+        test4.stifte,
+        test4.offene,
+        test4.verdeckelte,
+        test4.weiselzelle,
+        test4.spielnaepfe,
+        test4.sanftmut,
+        test4.volksstaerke,
+        test4.anz_brutwaben,
+    )
 }
