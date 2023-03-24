@@ -8,5 +8,5 @@ fn main() {
     // TODO: implement me
 
     // start tauri application
-    frontend::builder::app()
+    frontend::builder::app();
 }
