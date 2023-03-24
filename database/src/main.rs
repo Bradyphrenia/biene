@@ -37,8 +37,7 @@ impl From<Row> for Volk {
     }
 }
 
-fn volk_fetchone(sql: &str) -> Result<Volk, Error> {
-    let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
+fn volk_fetchone(sql: &str, mut client: Client) -> Result<Volk, Error> {
     let row = client.query_one(sql, &[])?;
     let volk = Volk::from(row);
     Ok(volk) // return a strukt
@@ -78,15 +77,23 @@ impl From<Row> for Durchsicht {
     }
 }
 
-fn durchsicht_fetchone(sql: &str) -> Result<Durchsicht, Error> {
-    let mut client = Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)?;
+fn init_db() -> Result<Client, Error> {
+    let mut client =
+        match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls) {
+            Ok(client_) => client_,
+            Err(e) => todo!(),
+        };
+    Ok(client)
+}
+
+fn durchsicht_fetchone(sql: &str, mut client: Client) -> Result<Durchsicht, Error> {
     let row = client.query_one(sql, &[])?;
     let durchsicht = Durchsicht::from(row);
     Ok(durchsicht) // return a strukt
 }
 
 fn main() {
-    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk").unwrap();
+    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk", init_db().unwrap()).unwrap();
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test3.id,
@@ -99,7 +106,7 @@ fn main() {
         test3.raehmchenmass,
         test3.stand
     );
-    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht").unwrap();
+    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht", init_db().unwrap()).unwrap();
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test4.id,
