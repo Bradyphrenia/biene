@@ -1,5 +1,6 @@
 import Greet from "./components/Greet.vue";
-import ReviewVue from "./components/ReviewView.vue";
+import ReviewView from "./components/ReviewView.vue";
+import SettingsView from "./components/SettingsView.vue";
 
 import { createRouter, createWebHashHistory } from 'vue-router'
 
@@ -9,8 +10,12 @@ const routes = [
     component: Greet,
   },
   {
-    path: '/test2',
-    component: ReviewVue,
+    path: '/review',
+    component: ReviewView,
+  },
+  {
+    path: '/settings',
+    component: SettingsView,
   }
 ]
 
