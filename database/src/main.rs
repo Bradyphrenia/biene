@@ -37,10 +37,24 @@ impl From<Row> for Volk {
     }
 }
 
-fn volk_fetchone(sql: &str, mut client: Client) -> Result<Volk, Error> {
-    let row = client.query_one(sql, &[])?;
+fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
+    let default_vk: Volk = Volk {
+        id: 0,
+        volk: "".to_string(),
+        nummer: 0,
+        koenigin: "".to_string(),
+        erstellt: "".to_string(),
+        aufgeloest: "".to_string(),
+        typ: "".to_string(),
+        raehmchenmass: "".to_string(),
+        stand: "".to_string(),
+    };
+    let row = match client.query_one(sql, &[]) {
+        Ok(row) => row,
+        Err(_e) => return default_vk,
+    };
     let volk = Volk::from(row);
-    Ok(volk) // return a strukt
+    return volk; // return a strukt
 }
 
 pub struct Durchsicht {
@@ -77,23 +91,40 @@ impl From<Row> for Durchsicht {
     }
 }
 
-fn init_db() -> Result<Client, Error> {
-    let mut client =
-        match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls) {
-            Ok(client_) => client_,
-            Err(e) => todo!(),
-        };
-    Ok(client)
+fn init_db() -> Client {
+    let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
+    {
+        Ok(client) => client,
+        Err(_e) => todo!(),
+    };
+    return client;
 }
 
-fn durchsicht_fetchone(sql: &str, mut client: Client) -> Result<Durchsicht, Error> {
-    let row = client.query_one(sql, &[])?;
+fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
+    let default_ds = Durchsicht {
+        id: 0,
+        datum: "2020-01-01".to_string(),
+        volk: "".to_string(),
+        koenigin: false,
+        stifte: false,
+        offene: false,
+        verdeckelte: false,
+        weiselzelle: false,
+        spielnaepfe: false,
+        sanftmut: 0,
+        volksstaerke: 0,
+        anz_brutwaben: 0,
+    };
+    let row = match client.query_one(sql, &[]) {
+        Ok(row) => row,
+        Err(_e) => return default_ds,
+    };
     let durchsicht = Durchsicht::from(row);
-    Ok(durchsicht) // return a strukt
+    return durchsicht; // return a strukt
 }
 
 fn main() {
-    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk", init_db().unwrap()).unwrap();
+    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk", init_db());
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test3.id,
@@ -106,7 +137,7 @@ fn main() {
         test3.raehmchenmass,
         test3.stand
     );
-    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht", init_db().unwrap()).unwrap();
+    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht", init_db());
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test4.id,
