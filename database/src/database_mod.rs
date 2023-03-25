@@ -140,7 +140,7 @@ pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
         Err(_e) => return default_ds, // return a default strukt
     };
     let durchsicht = Durchsicht::from(row);
-    return durchsicht; // return a strukt
+    return durchsicht; // return a struct
 }
 
 // function for executing a sql script against the database "biene"
@@ -155,8 +155,32 @@ pub fn db_execute(sql: &str, mut client: Client) -> u64 {
     };
 }
 
+pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
+    let mut default_vkv = Vec::new();
+    default_vkv.push(Volk {
+        id: 0,
+        volk: "".to_string(),
+        nummer: 0,
+        koenigin: "".to_string(),
+        erstellt: "".to_string(),
+        aufgeloest: "".to_string(),
+        typ: "".to_string(),
+        raehmchenmass: "".to_string(),
+        stand: "".to_string(),
+    });
+    let rows = match client.query(sql, &[]) {
+        Ok(rows) => rows,
+        Err(_e) => return default_vkv, // return a default vec struct
+    };
+    let mut volk_vec = Vec::new();
+    for row in rows {
+        volk_vec.push(Volk::from(row))
+    }
+    return volk_vec; // return a vec struct
+}
+
 pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
-    let mut default_dsv = Vec::new(); //vec![Durchsicht] ;
+    let mut default_dsv = Vec::new();
     default_dsv.push(Durchsicht {
         id: 0,
         datum: "2020-01-01".to_string(),
@@ -180,5 +204,5 @@ pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
     for row in rows {
         durchsicht_vec.push(Durchsicht::from(row))
     }
-    return durchsicht_vec; // return a vec strukt
+    return durchsicht_vec; // return a vec struct
 }

@@ -1,8 +1,8 @@
 mod database_mod;
 
 use crate::database_mod::init_db;
-use crate::database_mod::volk_fetchone;
 use crate::database_mod::{db_execute, durchsicht_fetchall, durchsicht_fetchone};
+use crate::database_mod::{volk_fetchall, volk_fetchone};
 
 fn main() {
     let test0 = db_execute(
@@ -63,6 +63,22 @@ fn main() {
             x.volksstaerke,
             x.anz_brutwaben,
             x.memo,
+        );
+    }
+
+    let test6 = volk_fetchall("SELECT id, volk, nummer, koenigin, erstellt::varchar, aufgeloest::varchar, typ, raehmchenmass, stand FROM volk ;", init_db());
+    for x in test6 {
+        println!(
+            "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
+            x.id,
+            x.volk,
+            x.nummer,
+            x.koenigin,
+            x.erstellt,
+            x.aufgeloest,
+            x.typ,
+            x.raehmchenmass,
+            x.stand
         );
     }
 }
