@@ -1,10 +1,11 @@
 use postgres::{Client, Error, NoTls, Row};
 
 fn init_db() -> Client {
+    // TODO: () <- parameters for database access
     let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
     {
         Ok(client) => client,
-        Err(_e) => todo!(),
+        Err(_e) => panic!("{}", _e), // database out of reach -> panic
     };
     return client;
 }
@@ -60,7 +61,7 @@ fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
     };
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
-        Err(_e) => return default_vk,
+        Err(_e) => return default_vk, // return a default strukt
     };
     let volk = Volk::from(row);
     return volk; // return a strukt
@@ -117,7 +118,7 @@ fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
     };
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
-        Err(_e) => return default_ds,
+        Err(_e) => return default_ds, // return a default strukt
     };
     let durchsicht = Durchsicht::from(row);
     return durchsicht; // return a strukt
