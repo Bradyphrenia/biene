@@ -206,3 +206,4 @@ pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
     }
     return durchsicht_vec; // return a vec struct
 }
+
