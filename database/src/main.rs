@@ -1,15 +1,15 @@
 use postgres::{Client, Error, NoTls, Row};
 
-pub struct Volk {
-    pub id: i32,
-    pub volk: String,
-    pub nummer: i32,
-    pub koenigin: String,
-    pub erstellt: String,
-    pub aufgeloest: String,
-    pub typ: String,
-    pub raehmchenmass: String,
-    pub stand: String,
+struct Volk {
+    id: i32,
+    volk: String,
+    nummer: i32,
+    koenigin: String,
+    erstellt: String,
+    aufgeloest: String,
+    typ: String,
+    raehmchenmass: String,
+    stand: String,
 }
 
 impl From<Row> for Volk {
@@ -57,19 +57,19 @@ fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
     return volk; // return a strukt
 }
 
-pub struct Durchsicht {
-    pub id: i32,
-    pub datum: String,
-    pub volk: String,
-    pub koenigin: bool,
-    pub stifte: bool,
-    pub offene: bool,
-    pub verdeckelte: bool,
-    pub weiselzelle: bool,
-    pub spielnaepfe: bool,
-    pub sanftmut: i16,
-    pub volksstaerke: i16,
-    pub anz_brutwaben: i16,
+struct Durchsicht {
+    id: i32,
+    datum: String,
+    volk: String,
+    koenigin: bool,
+    stifte: bool,
+    offene: bool,
+    verdeckelte: bool,
+    weiselzelle: bool,
+    spielnaepfe: bool,
+    sanftmut: i16,
+    volksstaerke: i16,
+    anz_brutwaben: i16,
 }
 
 impl From<Row> for Durchsicht {
