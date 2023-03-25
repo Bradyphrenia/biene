@@ -155,6 +155,8 @@ pub fn db_execute(sql: &str, mut client: Client) -> u64 {
     };
 }
 
+// function to query multiple lines of data from the table "Volk"
+
 pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
     let mut default_vkv = Vec::new();
     default_vkv.push(Volk {
@@ -178,6 +180,8 @@ pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
     }
     return volk_vec; // return a vec struct
 }
+
+// function to query multiple lines of data from the table "Durchsicht"
 
 pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
     let mut default_dsv = Vec::new();
@@ -206,4 +210,3 @@ pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
     }
     return durchsicht_vec; // return a vec struct
 }
-
