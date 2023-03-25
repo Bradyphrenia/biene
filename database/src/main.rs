@@ -5,7 +5,12 @@ use crate::database_mod::volk_fetchone;
 use crate::database_mod::{db_execute, durchsicht_fetchone};
 
 fn main() {
-    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk", init_db());
+    let test0 = db_execute(
+        "ALTER TABLE durchsicht ADD COLUMN memo varchar();",
+        init_db(),
+    ); // Einfügen des Memofeldes
+    println!("{} Zeile(n) eingefügt.", test0);
+    let test3 = volk_fetchone("SELECT id, volk, nummer, koenigin, erstellt::varchar, aufgeloest::varchar, typ, raehmchenmass, stand FROM volk WHERE volk = 'Volk 01';", init_db());
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test3.id,
@@ -18,9 +23,9 @@ fn main() {
         test3.raehmchenmass,
         test3.stand
     );
-    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht", init_db());
+    let test4 = durchsicht_fetchone("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht WHERE id = 26;", init_db());
     println!(
-        "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
+        "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test4.id,
         test4.datum,
         test4.volk,
@@ -33,9 +38,10 @@ fn main() {
         test4.sanftmut,
         test4.volksstaerke,
         test4.anz_brutwaben,
+        test4.memo,
     );
-    let test1 = db_execute("INSERT INTO durchsicht ", init_db()); // unvollständiges Script
+    let test1 = db_execute("INSERT INTO durchsicht ...", init_db()); // unvollständiges Script
     println!("{} Zeile(n) eingefügt.", test1);
-    let test2 = db_execute("INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben) VALUES ('2023-03-25', 'Volk 01', TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 5, 4, 4);", init_db()); // vollständiges Script
+    let test2 = db_execute("INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) VALUES ('2023-03-25', 'Volk 01', TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 5, 4, 4, 'Das ist ein Test!!!');", init_db()); // vollständiges Script
     println!("{} Zeile(n) eingefügt.", test2);
 }

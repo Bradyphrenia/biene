@@ -88,13 +88,17 @@ pub struct Durchsicht {
     pub sanftmut: i16,
     pub volksstaerke: i16,
     pub anz_brutwaben: i16,
+    pub memo: String,
 }
 
 impl From<Row> for Durchsicht {
     fn from(row: Row) -> Self {
         Self {
             id: row.get("id"),
-            datum: row.get("datum"),
+            datum: match row.get("datum") {
+                Some(val) => val,
+                None => "".to_string(),
+            },
             volk: row.get("volk"),
             koenigin: row.get("koenigin"),
             stifte: row.get("stifte"),
@@ -105,6 +109,10 @@ impl From<Row> for Durchsicht {
             sanftmut: row.get("sanftmut"),
             volksstaerke: row.get("volksstaerke"),
             anz_brutwaben: row.get("anz_brutwaben"),
+            memo: match row.get("memo") {
+                Some(val) => val,
+                None => "".to_string(),
+            },
         }
     }
 }
@@ -125,6 +133,7 @@ pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
         sanftmut: 0,
         volksstaerke: 0,
         anz_brutwaben: 0,
+        memo: "".to_string(),
     };
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
