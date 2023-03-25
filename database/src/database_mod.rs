@@ -1,14 +1,18 @@
 use postgres::{Client, NoTls, Row};
 
+// initialize the database
+
 pub fn init_db() -> Client {
     // TODO?: () <- parameters for database access
     let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
     {
         Ok(client) => client,
-        Err(_e) => panic!("{}", _e), // database out of reach -> ok to panic
+        Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
     };
     return client;
 }
+
+// init struct "Volk" for the database query
 
 pub struct Volk {
     pub id: i32,
@@ -47,6 +51,8 @@ impl From<Row> for Volk {
     }
 }
 
+// function to query data from the table "Volk"
+
 pub fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
     let default_vk: Volk = Volk {
         id: 0,
@@ -61,11 +67,13 @@ pub fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
     };
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
-        Err(_e) => return default_vk, // return a default strukt
+        Err(_e) => return default_vk, // return a default struct
     };
     let volk = Volk::from(row);
     return volk; // return a strukt
 }
+
+// init struct "Durchsicht" for the database query
 
 pub struct Durchsicht {
     pub id: i32,
@@ -101,6 +109,8 @@ impl From<Row> for Durchsicht {
     }
 }
 
+// function to query data from the table "volk"
+
 pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
     let default_ds = Durchsicht {
         id: 0,
@@ -122,4 +132,16 @@ pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
     };
     let durchsicht = Durchsicht::from(row);
     return durchsicht; // return a strukt
+}
+
+// function for executing a sql script against the database "biene"
+// returns 0 in case of an error happening, otherwise the lines affected
+// i hope this error handling and returning are clever :-)
+
+pub fn db_execute(sql: &str, mut client: Client) -> u64 {
+    // count of executed lines  in the database table
+    let _lines = match client.execute(sql, &[]) {
+        Ok(_lines) => return _lines,
+        Err(..) => return 0,
+    };
 }
