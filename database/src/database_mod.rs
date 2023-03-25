@@ -154,3 +154,31 @@ pub fn db_execute(sql: &str, mut client: Client) -> u64 {
         Err(..) => return 0,
     };
 }
+
+pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
+    let mut default_dsv = Vec::new(); //vec![Durchsicht] ;
+    default_dsv.push(Durchsicht {
+        id: 0,
+        datum: "2020-01-01".to_string(),
+        volk: "".to_string(),
+        koenigin: false,
+        stifte: false,
+        offene: false,
+        verdeckelte: false,
+        weiselzelle: false,
+        spielnaepfe: false,
+        sanftmut: 0,
+        volksstaerke: 0,
+        anz_brutwaben: 0,
+        memo: "".to_string(),
+    });
+    let rows = match client.query(sql, &[]) {
+        Ok(rows) => rows,
+        Err(_e) => return default_dsv, // return a default vec struct
+    };
+    let mut durchsicht_vec: Vec<Durchsicht> = Vec::new();
+    for row in rows {
+        durchsicht_vec.push(Durchsicht::from(row))
+    }
+    return durchsicht_vec; // return a vec strukt
+}

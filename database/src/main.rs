@@ -2,7 +2,7 @@ mod database_mod;
 
 use crate::database_mod::init_db;
 use crate::database_mod::volk_fetchone;
-use crate::database_mod::{db_execute, durchsicht_fetchone};
+use crate::database_mod::{db_execute, durchsicht_fetchall, durchsicht_fetchone};
 
 fn main() {
     let test0 = db_execute(
@@ -44,4 +44,25 @@ fn main() {
     println!("{} Zeile(n) eingefügt.", test1);
     let test2 = db_execute("INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) VALUES ('2023-03-25', 'Volk 01', TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 5, 4, 4, 'Das ist ein Test!!!');", init_db()); // vollständiges Script
     println!("{} Zeile(n) eingefügt.", test2);
+
+    let test5 = durchsicht_fetchall("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht;", init_db());
+
+    for x in test5 {
+        println!(
+            "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
+            x.id,
+            x.datum,
+            x.volk,
+            x.koenigin,
+            x.stifte,
+            x.offene,
+            x.verdeckelte,
+            x.weiselzelle,
+            x.spielnaepfe,
+            x.sanftmut,
+            x.volksstaerke,
+            x.anz_brutwaben,
+            x.memo,
+        );
+    }
 }
