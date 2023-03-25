@@ -1,5 +1,14 @@
 use postgres::{Client, Error, NoTls, Row};
 
+fn init_db() -> Client {
+    let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
+    {
+        Ok(client) => client,
+        Err(_e) => todo!(),
+    };
+    return client;
+}
+
 struct Volk {
     id: i32,
     volk: String,
@@ -89,15 +98,6 @@ impl From<Row> for Durchsicht {
             anz_brutwaben: row.get("anz_brutwaben"),
         }
     }
-}
-
-fn init_db() -> Client {
-    let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
-    {
-        Ok(client) => client,
-        Err(_e) => todo!(),
-    };
-    return client;
 }
 
 fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
