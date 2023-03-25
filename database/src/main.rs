@@ -44,42 +44,42 @@ fn main() {
     println!("{} Zeile(n) eingefügt.", test1);
     let test2 = db_execute("INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) VALUES ('2023-03-25', 'Volk 01', TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 5, 4, 4, 'Das ist ein Test!!!');", init_db()); // vollständiges Script
     println!("{} Zeile(n) eingefügt.", test2);
-
-    let test5 = durchsicht_fetchall("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht;", init_db());
-
-    for x in test5 {
-        println!(
-            "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
-            x.id,
-            x.datum,
-            x.volk,
-            x.koenigin,
-            x.stifte,
-            x.offene,
-            x.verdeckelte,
-            x.weiselzelle,
-            x.spielnaepfe,
-            x.sanftmut,
-            x.volksstaerke,
-            x.anz_brutwaben,
-            x.memo,
-        );
+    for i in 0..100 {
+        println!("{}-er Durchlauf: ", i);
+        let test5 = durchsicht_fetchall("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht;", init_db());
+        for x in test5 {
+            println!(
+                "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
+                x.id,
+                x.datum,
+                x.volk,
+                x.koenigin,
+                x.stifte,
+                x.offene,
+                x.verdeckelte,
+                x.weiselzelle,
+                x.spielnaepfe,
+                x.sanftmut,
+                x.volksstaerke,
+                x.anz_brutwaben,
+                x.memo,
+            );
+        }
+        let test6 = volk_fetchall("SELECT id, volk, nummer, koenigin, erstellt::varchar, aufgeloest::varchar, typ, raehmchenmass, stand FROM volk ;", init_db());
+        for x in test6 {
+            println!(
+                "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
+                x.id,
+                x.volk,
+                x.nummer,
+                x.koenigin,
+                x.erstellt,
+                x.aufgeloest,
+                x.typ,
+                x.raehmchenmass,
+                x.stand
+            );
+        }
     }
-
-    let test6 = volk_fetchall("SELECT id, volk, nummer, koenigin, erstellt::varchar, aufgeloest::varchar, typ, raehmchenmass, stand FROM volk ;", init_db());
-    for x in test6 {
-        println!(
-            "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
-            x.id,
-            x.volk,
-            x.nummer,
-            x.koenigin,
-            x.erstellt,
-            x.aufgeloest,
-            x.typ,
-            x.raehmchenmass,
-            x.stand
-        );
-    }
+    println!("100 Durchläufe realisiert.")
 }
-
