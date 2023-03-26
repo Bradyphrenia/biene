@@ -82,7 +82,7 @@ fn main() {
         }
     }
     println!("100 Durchläufe realisiert.");
-    let _test7 = db_execute("SELECT setval('volk_seq', 16, true);", init_db());
+    let _test7 = db_execute("SELECT setval('volk_seq', 19, true);", init_db());
 
     let _test8 = db_execute(
         "UPDATE durchsicht SET volk = 'Volk 11' WHERE volk = 'Volk 011';",
@@ -128,4 +128,9 @@ fn main() {
         "UPDATE durchsicht SET volk = 'Volk 01' WHERE volk = 'Volk 001';",
         init_db(),
     );
+    let _test8 = db_execute("SELECT setval('volk_seq', 19, true);", init_db());
+    let _test8 = db_execute("SELECT setval('veterinaer_seq', 3, true);", init_db());
+    let _test8 = db_execute("SELECT setval('zuechter_seq', 8, true);", init_db());
+    let _test8 = db_execute("SELECT setval('durchsicht_seq', 141, true);", init_db());
+    let _test8 = db_execute("SELECT setval('stand_seq', 6, true);", init_db());
 }
