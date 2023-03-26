@@ -83,4 +83,49 @@ fn main() {
     }
     println!("100 Durchläufe realisiert.");
     let _test7 = db_execute("SELECT setval('volk_seq', 16, true);", init_db());
+
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 11' WHERE volk = 'Volk 011';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 10' WHERE volk = 'Volk 010';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 09' WHERE volk = 'Volk 009';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 08' WHERE volk = 'Volk 008';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 07' WHERE volk = 'Volk 007';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 06' WHERE volk = 'Volk 006';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 05' WHERE volk = 'Volk 005';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 04' WHERE volk = 'Volk 004';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 03' WHERE volk = 'Volk 003';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 02' WHERE volk = 'Volk 002';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 01' WHERE volk = 'Volk 001';",
+        init_db(),
+    );
 }
