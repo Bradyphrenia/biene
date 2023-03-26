@@ -100,15 +100,42 @@ impl From<Row> for Durchsicht {
                 None => "".to_string(),
             },
             volk: row.get("volk"),
-            koenigin: row.get("koenigin"),
-            stifte: row.get("stifte"),
-            offene: row.get("offene"),
-            verdeckelte: row.get("verdeckelte"),
-            weiselzelle: row.get("weiselzelle"),
-            spielnaepfe: row.get("spielnaepfe"),
-            sanftmut: row.get("sanftmut"),
-            volksstaerke: row.get("volksstaerke"),
-            anz_brutwaben: row.get("anz_brutwaben"),
+            koenigin: match row.get("koenigin") {
+                Some(val) => val,
+                None => false,
+            },
+            stifte: match row.get("stifte") {
+                Some(val) => val,
+                None => false,
+            },
+            offene: match row.get("offene") {
+                Some(val) => val,
+                None => false,
+            },
+            verdeckelte: match row.get("verdeckelte") {
+                Some(val) => val,
+                None => false,
+            },
+            weiselzelle: match row.get("weiselzelle") {
+                Some(val) => val,
+                None => false,
+            },
+            spielnaepfe: match row.get("spielnaepfe") {
+                Some(val) => val,
+                None => false,
+            },
+            sanftmut: match row.get("sanftmut") {
+                Some(val) => val,
+                None => 0,
+            },
+            volksstaerke: match row.get("volksstaerke") {
+                Some(val) => val,
+                None => 0,
+            },
+            anz_brutwaben: match row.get("anz_brutwaben") {
+                Some(val) => val,
+                None => 0,
+            },
             memo: match row.get("memo") {
                 Some(val) => val,
                 None => "".to_string(),
