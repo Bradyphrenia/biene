@@ -1,99 +1,16 @@
-use postgres::{Client, Error, NoTls, Row};
+mod database_mod;
 
-pub struct Volk {
-    pub id: i32,
-    pub volk: String,
-    pub nummer: i32,
-    pub koenigin: String,
-    pub erstellt: String,
-    pub aufgeloest: String,
-    pub typ: String,
-    pub raehmchenmass: String,
-    pub stand: String,
-}
-
-impl From<Row> for Volk {
-    fn from(row: Row) -> Self {
-        Self {
-            id: row.get("id"),
-            volk: row.get("volk"),
-            nummer: row.get("nummer"),
-            koenigin: match row.get("koenigin") {
-                Some(val) => val,
-                None => "".to_string(),
-            },
-            erstellt: match row.get("erstellt") {
-                Some(val) => val,
-                None => "".to_string(),
-            },
-            aufgeloest: match row.get("aufgeloest") {
-                Some(val) => val,
-                None => "".to_string(),
-            },
-            typ: row.get("typ"),
-            raehmchenmass: row.get("raehmchenmass"),
-            stand: row.get("stand"),
-        }
-    }
-}
-
-fn volk_fetchone(sql: &str, mut client: Client) -> Result<Volk, Error> {
-    let row = client.query_one(sql, &[])?;
-    let volk = Volk::from(row);
-    Ok(volk) // return a strukt
-}
-
-pub struct Durchsicht {
-    pub id: i32,
-    pub datum: String,
-    pub volk: String,
-    pub koenigin: bool,
-    pub stifte: bool,
-    pub offene: bool,
-    pub verdeckelte: bool,
-    pub weiselzelle: bool,
-    pub spielnaepfe: bool,
-    pub sanftmut: i16,
-    pub volksstaerke: i16,
-    pub anz_brutwaben: i16,
-}
-
-impl From<Row> for Durchsicht {
-    fn from(row: Row) -> Self {
-        Self {
-            id: row.get("id"),
-            datum: row.get("datum"),
-            volk: row.get("volk"),
-            koenigin: row.get("koenigin"),
-            stifte: row.get("stifte"),
-            offene: row.get("offene"),
-            verdeckelte: row.get("verdeckelte"),
-            weiselzelle: row.get("weiselzelle"),
-            spielnaepfe: row.get("spielnaepfe"),
-            sanftmut: row.get("sanftmut"),
-            volksstaerke: row.get("volksstaerke"),
-            anz_brutwaben: row.get("anz_brutwaben"),
-        }
-    }
-}
-
-fn init_db() -> Result<Client, Error> {
-    let mut client =
-        match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls) {
-            Ok(client_) => client_,
-            Err(e) => todo!(),
-        };
-    Ok(client)
-}
-
-fn durchsicht_fetchone(sql: &str, mut client: Client) -> Result<Durchsicht, Error> {
-    let row = client.query_one(sql, &[])?;
-    let durchsicht = Durchsicht::from(row);
-    Ok(durchsicht) // return a strukt
-}
+use crate::database_mod::init_db;
+use crate::database_mod::{db_execute, durchsicht_fetchall, durchsicht_fetchone};
+use crate::database_mod::{volk_fetchall, volk_fetchone};
 
 fn main() {
-    let test3 = volk_fetchone("SELECT id,volk,nummer,koenigin,erstellt::varchar,aufgeloest::varchar,typ,raehmchenmass, stand FROM volk", init_db().unwrap()).unwrap();
+    let test0 = db_execute(
+        "ALTER TABLE durchsicht ADD COLUMN memo varchar();",
+        init_db(),
+    ); // Einfügen des Memofeldes
+    println!("{} Zeile(n) eingefügt.", test0);
+    let test3 = volk_fetchone("SELECT id, volk, nummer, koenigin, erstellt::varchar, aufgeloest::varchar, typ, raehmchenmass, stand FROM volk WHERE volk = 'Volk 01';", init_db());
     println!(
         "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test3.id,
@@ -106,9 +23,9 @@ fn main() {
         test3.raehmchenmass,
         test3.stand
     );
-    let test4 = durchsicht_fetchone("SELECT id,datum::varchar,volk,koenigin,stifte,offene,verdeckelte,weiselzelle,spielnaepfe,sanftmut,volksstaerke,anz_brutwaben FROM durchsicht", init_db().unwrap()).unwrap();
+    let test4 = durchsicht_fetchone("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht WHERE id = 26;", init_db());
     println!(
-        "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
+        "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
         test4.id,
         test4.datum,
         test4.volk,
@@ -121,5 +38,94 @@ fn main() {
         test4.sanftmut,
         test4.volksstaerke,
         test4.anz_brutwaben,
-    )
+        test4.memo,
+    );
+    let test1 = db_execute("INSERT INTO durchsicht ...", init_db()); // unvollständiges Script
+    println!("{} Zeile(n) eingefügt.", test1);
+    let test2 = db_execute("INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) VALUES ('2023-03-25', 'Volk 01', TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 5, 4, 4, 'Das ist ein Test!!!');", init_db()); // vollständiges Script
+    println!("{} Zeile(n) eingefügt.", test2);
+    for i in 0..100 {
+        println!("{}-er Durchlauf: ", i);
+        let test5 = durchsicht_fetchall("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht;", init_db());
+        for x in test5 {
+            println!(
+                "{} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} ",
+                x.id,
+                x.datum,
+                x.volk,
+                x.koenigin,
+                x.stifte,
+                x.offene,
+                x.verdeckelte,
+                x.weiselzelle,
+                x.spielnaepfe,
+                x.sanftmut,
+                x.volksstaerke,
+                x.anz_brutwaben,
+                x.memo,
+            );
+        }
+        let test6 = volk_fetchall("SELECT id, volk, nummer, koenigin, erstellt::varchar, aufgeloest::varchar, typ, raehmchenmass, stand FROM volk ;", init_db());
+        for x in test6 {
+            println!(
+                "{} | {} | {} | {} | {} | {} | {} | {} | {} ",
+                x.id,
+                x.volk,
+                x.nummer,
+                x.koenigin,
+                x.erstellt,
+                x.aufgeloest,
+                x.typ,
+                x.raehmchenmass,
+                x.stand
+            );
+        }
+    }
+    println!("100 Durchläufe realisiert.");
+    let _test7 = db_execute("SELECT setval('volk_seq', 16, true);", init_db());
+
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 11' WHERE volk = 'Volk 011';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 10' WHERE volk = 'Volk 010';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 09' WHERE volk = 'Volk 009';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 08' WHERE volk = 'Volk 008';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 07' WHERE volk = 'Volk 007';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 06' WHERE volk = 'Volk 006';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 05' WHERE volk = 'Volk 005';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 04' WHERE volk = 'Volk 004';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 03' WHERE volk = 'Volk 003';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 02' WHERE volk = 'Volk 002';",
+        init_db(),
+    );
+    let _test8 = db_execute(
+        "UPDATE durchsicht SET volk = 'Volk 01' WHERE volk = 'Volk 001';",
+        init_db(),
+    );
 }
