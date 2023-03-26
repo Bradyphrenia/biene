@@ -40,10 +40,12 @@ fn main() {
         test4.anz_brutwaben,
         test4.memo,
     );
+    /*
     let test1 = db_execute("INSERT INTO durchsicht ...", init_db()); // unvollständiges Script
     println!("{} Zeile(n) eingefügt.", test1);
     let test2 = db_execute("INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) VALUES ('2023-03-25', 'Volk 01', TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 5, 4, 4, 'Das ist ein Test!!!');", init_db()); // vollständiges Script
     println!("{} Zeile(n) eingefügt.", test2);
+     */
     for i in 0..100 {
         println!("{}-er Durchlauf: ", i);
         let test5 = durchsicht_fetchall("SELECT id, datum::varchar, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo FROM durchsicht;", init_db());
