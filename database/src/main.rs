@@ -82,5 +82,5 @@ fn main() {
         }
     }
     println!("100 Durchläufe realisiert.");
-    let test7 = db_execute("SELECT setval('volk_seq', 16, true);", init_db());
+    let _test7 = db_execute("SELECT setval('volk_seq', 16, true);", init_db());
 }
