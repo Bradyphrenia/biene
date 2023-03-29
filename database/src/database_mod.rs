@@ -1,4 +1,5 @@
 use postgres::{Client, NoTls, Row};
+use std::default::Default;
 
 // initialize the database
 
@@ -13,7 +14,7 @@ pub fn init_db() -> Client {
 }
 
 // init struct "Volk" for the database query
-
+#[derive(Default)]
 pub struct Volk {
     pub id: i32,
     pub volk: String,
@@ -54,17 +55,7 @@ impl From<Row> for Volk {
 // function to query data from the table "Volk"
 
 pub fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
-    let default_vk: Volk = Volk {
-        id: 0,
-        volk: "".to_string(),
-        nummer: 0,
-        koenigin: "".to_string(),
-        erstellt: "".to_string(),
-        aufgeloest: "".to_string(),
-        typ: "".to_string(),
-        raehmchenmass: "".to_string(),
-        stand: "".to_string(),
-    };
+    let default_vk: Volk = Default::default();
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
         Err(_e) => return default_vk, // return a default struct
@@ -74,7 +65,7 @@ pub fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
 }
 
 // init struct "Durchsicht" for the database query
-
+#[derive(Default)]
 pub struct Durchsicht {
     pub id: i32,
     pub datum: String,
@@ -147,21 +138,7 @@ impl From<Row> for Durchsicht {
 // function to query data from the table "volk"
 
 pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
-    let default_ds = Durchsicht {
-        id: 0,
-        datum: "2020-01-01".to_string(),
-        volk: "".to_string(),
-        koenigin: false,
-        stifte: false,
-        offene: false,
-        verdeckelte: false,
-        weiselzelle: false,
-        spielnaepfe: false,
-        sanftmut: 0,
-        volksstaerke: 0,
-        anz_brutwaben: 0,
-        memo: "".to_string(),
-    };
+    let default_ds  = Default::default();
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
         Err(_e) => return default_ds, // return a default strukt
@@ -186,17 +163,7 @@ pub fn db_execute(sql: &str, mut client: Client) -> u64 {
 
 pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
     let mut default_vkv = Vec::new();
-    default_vkv.push(Volk {
-        id: 0,
-        volk: "".to_string(),
-        nummer: 0,
-        koenigin: "".to_string(),
-        erstellt: "".to_string(),
-        aufgeloest: "".to_string(),
-        typ: "".to_string(),
-        raehmchenmass: "".to_string(),
-        stand: "".to_string(),
-    });
+    default_vkv.push(Default::default());
     let rows = match client.query(sql, &[]) {
         Ok(rows) => rows,
         Err(_e) => return default_vkv, // return a default vec struct
@@ -212,21 +179,7 @@ pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
 
 pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
     let mut default_dsv = Vec::new();
-    default_dsv.push(Durchsicht {
-        id: 0,
-        datum: "2020-01-01".to_string(),
-        volk: "".to_string(),
-        koenigin: false,
-        stifte: false,
-        offene: false,
-        verdeckelte: false,
-        weiselzelle: false,
-        spielnaepfe: false,
-        sanftmut: 0,
-        volksstaerke: 0,
-        anz_brutwaben: 0,
-        memo: "".to_string(),
-    });
+    default_dsv.push(Default::default());
     let rows = match client.query(sql, &[]) {
         Ok(rows) => rows,
         Err(_e) => return default_dsv, // return a default vec struct
