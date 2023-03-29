@@ -138,7 +138,7 @@ impl From<Row> for Durchsicht {
 // function to query data from the table "volk"
 
 pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
-    let default_ds  = Default::default();
+    let default_ds = Default::default();
     let row = match client.query_one(sql, &[]) {
         Ok(row) => row,
         Err(_e) => return default_ds, // return a default strukt
