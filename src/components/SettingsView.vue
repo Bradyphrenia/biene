@@ -1,61 +1,78 @@
 <template>
-  <div class="block">
-    <div class="content">
-      <!-- <h2>General Settings</h2> -->
-      <h2>Database</h2>
-      <div class="level">
-        <div class="level-item">
-          <div class="label">
-            Database url
-          </div>
-        </div>
-        <div class="level-item">
-          <div class="control">
-            <input class="input" type="text" placeholder="database url" :value="dbSettings.url">
-          </div>
-        </div>
+  <div class="p-6 lg:flex-1">
+    <div class="content card">
+      <div class="card-header-title">
+        Database Settings
       </div>
+      <div class="card-content">
 
-      <div class="level">
-        <div class="level-item">
-          <div class="label">
-            Database port
-          </div>
-        </div>
-        <div class="level-item">
-          <div class="control">
-          <input class="input" type="text" placeholder="database port" :value="dbSettings.port">
-          </div>
-        </div>
-      </div>
+        <c-configuration label="Database URL">
+          <c-input
+            class="input"
+            type="text"
+            placeholder="database url"
+            v-model="url"
+            @blur="saveSettings" />
+        </c-configuration>
+        <c-configuration label="Database Port">
+          <c-input
+            class="input"
+            type="text"
+            placeholder="database port"
+            v-model="port"
+            @blur="saveSettings" />
+        </c-configuration>
+        <c-configuration label="Database">
+          <c-input
+            class="input"
+            type="text"
+            placeholder="database"
+            v-model="database"
+            @blur="saveSettings" />
+        </c-configuration>
+        <c-configuration label="Database User">
+          <c-input
+            class="input"
+            type="text"
+            placeholder="database user"
+            v-model="user"
+            @blur="saveSettings" />
+        </c-configuration>
+        <c-configuration label="Database Password">
+          <c-input
+            class="input"
+            type="password"
+            placeholder="database password"
+            v-model="password"
+            @blur="saveSettings" />
+        </c-configuration>
 
-      <div class="level">
-        <div class="level-item">
-          <div class="label">
-            Database user
-          </div>
-        </div>
-        <div class="level-item">
-          <div class="control">
-          <input class="input" type="text" placeholder="database user" :value="dbSettings.user">
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lan="ts">
-// import { Store } from "tauri-plugin-store-api";
 import { ref } from "vue";
-import { initStore } from "../store/store.ts";
+import { getTauriStore, setTauriStore } from "../store/store.ts";
 
 const dbSettings = ref({})
+dbSettings.value = await getTauriStore("test");
 
-async function loadDbSettings () {
-  const store = await initStore()
-  dbSettings.value = await store.get("database")
+const url = ref(dbSettings.value?.url || '');
+const port = ref(dbSettings.value?.port || '');
+const database = ref(dbSettings.value?.database || '');
+const user = ref(dbSettings.value?.user || '');
+const password = ref(dbSettings.value?.password || '');
+
+async function saveSettings () {
+  const settings = {
+    url: url.value,
+    port: port.value,
+    database: database.value,
+    user: user.value,
+    password: password.value
+  };
+  await setTauriStore("test", settings);
 }
-
-await loadDbSettings()
 </script>
