@@ -52,7 +52,7 @@ impl From<Row> for Volk {
     }
 }
 
-// function to query data from the table "Volk"
+// function to query data from the table "volk"
 
 pub fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
     let default_vk: Volk = Default::default();
@@ -135,7 +135,7 @@ impl From<Row> for Durchsicht {
     }
 }
 
-// function to query data from the table "volk"
+// function to query data from the table "durchsicht"
 
 pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
     let default_ds = Default::default();
@@ -159,7 +159,7 @@ pub fn db_execute(sql: &str, mut client: Client) -> u64 {
     };
 }
 
-// function to query multiple lines of data from the table "Volk"
+// function to query multiple lines of data from the table "volk"
 
 pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
     let mut default_vkv = Vec::new();
@@ -175,7 +175,7 @@ pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
     return volk_vec; // return a vec struct
 }
 
-// function to query multiple lines of data from the table "Durchsicht"
+// function to query multiple lines of data from the table "durchsicht"
 
 pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
     let mut default_dsv = Vec::new();
