@@ -1,10 +1,19 @@
-use crate::feeding_mod::{init_dadant_count, init_dadant_weight, netto_weight, Count, Weight};
+use crate::feeding_mod::{
+    brutto_weight, feed_need, netto_weight, Count, WarreCounts, WarreWeights, Weight,
+};
 
 mod feeding_mod;
 
 fn main() {
-    let testw: Weight = init_dadant_weight();
-    let testc: Count = init_dadant_count();
-    let w = netto_weight(testw, testc, false);
-    println!("{}", w)
+    let testww = feeding_mod::WarreWeights::new();
+    let testwc = WarreCounts::new();
+    let wweight = netto_weight(testww, testwc, false);
+    let bweight = brutto_weight(testww, testwc, false);
+    let feedw = feed_need(bweight, 25.0);
+    println!("Nettogewicht der Warré-Beute ohne Fütterer: {}", wweight);
+    println!(
+        "Sollgewicht der Warré-Beute nach dem Einfüttern: {}",
+        bweight
+    );
+    println!("Futter noch zu geben bei Gewicht von 25 kg: {}", feedw)
 }
