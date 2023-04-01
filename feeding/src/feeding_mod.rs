@@ -23,6 +23,13 @@ pub struct Count {
     pub deckel: i8,
 }
 
+impl Count {
+    pub fn set_zarge_count(mut c: Count, cnt: i8) -> Count {
+        c.zarge = cnt;
+        return c;
+    }
+}
+
 pub struct WarreWeights {}
 
 impl WarreWeights {
@@ -80,11 +87,6 @@ impl WarreCounts {
             kissen: 1,
             deckel: 1,
         }
-    }
-
-    pub fn set_zarge_count(mut wc: Count, cnt: i8) -> Count {
-        wc.zarge = cnt;
-        return wc;
     }
 }
 
