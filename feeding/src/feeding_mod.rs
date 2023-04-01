@@ -1,3 +1,4 @@
+// modul for calculating the feedings etc.
 #[derive(Debug, Clone, Copy)]
 pub struct Weight {
     pub boden: f32,
@@ -19,7 +20,6 @@ pub struct Count {
 }
 
 pub struct WarreWeights {}
-
 impl WarreWeights {
     pub fn new() -> Weight {
         Weight {
@@ -34,7 +34,6 @@ impl WarreWeights {
 }
 
 pub struct NormalmassWeights {}
-
 impl NormalmassWeights {
     pub fn new() -> Weight {
         Weight {
@@ -49,7 +48,6 @@ impl NormalmassWeights {
 }
 
 pub struct DadantWeights {}
-
 impl DadantWeights {
     pub fn new() -> Weight {
         Weight {
@@ -64,7 +62,6 @@ impl DadantWeights {
 }
 
 pub struct WarreCounts {}
-
 impl WarreCounts {
     pub fn new() -> Count {
         Count {
@@ -79,7 +76,6 @@ impl WarreCounts {
 }
 
 pub struct NormalmassCounts {}
-
 impl NormalmassCounts {
     pub fn new() -> Count {
         Count {
@@ -94,7 +90,6 @@ impl NormalmassCounts {
 }
 
 pub struct DadantCounts {}
-
 impl DadantCounts {
     pub fn new() -> Count {
         Count {

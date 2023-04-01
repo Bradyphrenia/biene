@@ -1,10 +1,10 @@
+mod feeding_mod;
+
 use crate::feeding_mod::{
     brutto_weight, feed_need, netto_weight, Count, WarreCounts, WarreWeights, Weight,
 };
 
-mod feeding_mod;
-
-fn main() {
+pub fn main() {
     let testww = feeding_mod::WarreWeights::new();
     let testwc = WarreCounts::new();
     let wweight = netto_weight(testww, testwc, false);
