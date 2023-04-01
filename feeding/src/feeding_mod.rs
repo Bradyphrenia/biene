@@ -1,8 +1,7 @@
 // modul for calculating the feedings etc.
 
-use std::arch::x86_64::_mm_loadl_epi64;
 use round::round;
-
+use std::arch::x86_64::_mm_loadl_epi64;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Weight {
@@ -53,7 +52,7 @@ impl NormalmassWeights {
         }
     }
 }
-
+#[derive(Debug, Clone, Copy)]
 pub struct DadantWeights {}
 
 impl DadantWeights {
@@ -68,7 +67,7 @@ impl DadantWeights {
         }
     }
 }
-
+#[derive(Debug, Clone, Copy)]
 pub struct WarreCounts {}
 
 impl WarreCounts {
@@ -81,6 +80,11 @@ impl WarreCounts {
             kissen: 1,
             deckel: 1,
         }
+    }
+
+    pub fn set_zarge_count(mut wc: Count, cnt: i8) -> Count {
+        wc.zarge = cnt;
+        return wc;
     }
 }
 
@@ -117,7 +121,7 @@ impl DadantCounts {
 pub fn netto_weight(weight: Weight, count: Count, feeder: bool) -> f32 {
     let mut weight_ = weight.boden * count.boden as f32
         + weight.zarge * count.zarge as f32
-        + weight.rahmen * count.rahmen as f32
+        + weight.rahmen * count.rahmen as f32 * count.zarge as f32
         + weight.kissen * count.kissen as f32
         + weight.deckel * count.deckel as f32;
 
@@ -141,5 +145,5 @@ pub fn feed_need(target: f32, current: f32) -> f32 {
     } else {
         let feeding = 0.0;
         feeding as f32
-    }
+    };
 }
