@@ -1,4 +1,9 @@
 // modul for calculating the feedings etc.
+
+use std::arch::x86_64::_mm_loadl_epi64;
+use round::round;
+
+
 #[derive(Debug, Clone, Copy)]
 pub struct Weight {
     pub boden: f32,
@@ -20,6 +25,7 @@ pub struct Count {
 }
 
 pub struct WarreWeights {}
+
 impl WarreWeights {
     pub fn new() -> Weight {
         Weight {
@@ -34,6 +40,7 @@ impl WarreWeights {
 }
 
 pub struct NormalmassWeights {}
+
 impl NormalmassWeights {
     pub fn new() -> Weight {
         Weight {
@@ -48,6 +55,7 @@ impl NormalmassWeights {
 }
 
 pub struct DadantWeights {}
+
 impl DadantWeights {
     pub fn new() -> Weight {
         Weight {
@@ -62,6 +70,7 @@ impl DadantWeights {
 }
 
 pub struct WarreCounts {}
+
 impl WarreCounts {
     pub fn new() -> Count {
         Count {
@@ -76,6 +85,7 @@ impl WarreCounts {
 }
 
 pub struct NormalmassCounts {}
+
 impl NormalmassCounts {
     pub fn new() -> Count {
         Count {
@@ -90,6 +100,7 @@ impl NormalmassCounts {
 }
 
 pub struct DadantCounts {}
+
 impl DadantCounts {
     pub fn new() -> Count {
         Count {
@@ -113,14 +124,22 @@ pub fn netto_weight(weight: Weight, count: Count, feeder: bool) -> f32 {
     if feeder == true {
         weight_ += weight.fuetterer * count.fuetterer as f32
     }
-    return weight_;
+    let weight_ = round(weight_ as f64, 2);
+    return weight_ as f32;
 }
 
 pub fn brutto_weight(weight: Weight, count: Count, feeder: bool) -> f32 {
-    return netto_weight(weight, count, feeder) + 22.0;
+    let weight = round(netto_weight(weight, count, feeder) as f64 + 22.0, 2);
+    return weight as f32;
 }
 
 pub fn feed_need(target: f32, current: f32) -> f32 {
     let feeding = 1.3 * (target - current);
-    return feeding;
+    return if feeding > 0.0 {
+        let feeding = round(feeding as f64, 2);
+        feeding as f32
+    } else {
+        let feeding = 0.0;
+        feeding as f32
+    }
 }
