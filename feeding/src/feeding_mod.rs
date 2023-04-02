@@ -77,6 +77,7 @@ impl NormalmassWeights {
         }
     }
 }
+
 #[derive(Debug, Clone, Copy)]
 pub struct DadantWeights {}
 
@@ -92,6 +93,7 @@ impl DadantWeights {
         }
     }
 }
+
 #[derive(Debug, Clone, Copy)]
 pub struct WarreCounts {}
 

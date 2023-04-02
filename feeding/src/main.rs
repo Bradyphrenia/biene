@@ -15,3 +15,4 @@ pub fn main() {
     println!("Sollgewicht der Warré-Beute ohne Fütterer nach dem Einfüttern: {bweight} kg");
     println!("Futter notwendig bei einem aktuellen Gewicht von 28 kg: {feedw} Liter")
 }
+
