@@ -3,8 +3,12 @@
 use round::round;
 use std::arch::x86_64::_mm_loadl_epi64;
 
-pub trait SetCount {
-    fn set_count(self, cnt: i8) -> Self;
+pub trait SetZargeCount {
+    fn set_zarge_count(self, cnt: i8) -> Self;
+}
+
+pub trait SetFeeder {
+    fn set_feeder(self, fd: bool) -> Self;
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -27,9 +31,19 @@ pub struct Count {
     pub deckel: i8,
 }
 
-impl SetCount for Count {
-    fn set_count(mut self, cnt: i8) -> Count {
+impl SetZargeCount for Count {
+    fn set_zarge_count(mut self, cnt: i8) -> Count {
         self.zarge = cnt;
+        return self;
+    }
+}
+
+impl SetFeeder for Count {
+    fn set_feeder(mut self, fd: bool) -> Count {
+        self.fuetterer = match fd {
+            true => 1,
+            false => 0,
+        };
         return self;
     }
 }
@@ -124,22 +138,19 @@ impl DadantCounts {
     }
 }
 
-pub fn netto_weight(weight: Weight, count: Count, feeder: bool) -> f32 {
+pub fn netto_weight(weight: Weight, count: Count) -> f32 {
     let mut weight_ = weight.boden * count.boden as f32
         + weight.zarge * count.zarge as f32
         + weight.rahmen * count.rahmen as f32 * count.zarge as f32
         + weight.kissen * count.kissen as f32
+        + weight.fuetterer * count.fuetterer as f32
         + weight.deckel * count.deckel as f32;
-
-    if feeder == true {
-        weight_ += weight.fuetterer * count.fuetterer as f32
-    }
     let weight_ = round(weight_ as f64, 2);
     return weight_ as f32;
 }
 
-pub fn brutto_weight(weight: Weight, count: Count, feeder: bool) -> f32 {
-    let weight = round(netto_weight(weight, count, feeder) as f64 + 22.0, 2);
+pub fn brutto_weight(weight: Weight, count: Count) -> f32 {
+    let weight = round(netto_weight(weight, count) as f64 + 22.0, 2);
     return weight as f32;
 }
 
