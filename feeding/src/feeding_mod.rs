@@ -3,6 +3,10 @@
 use round::round;
 use std::arch::x86_64::_mm_loadl_epi64;
 
+pub trait SetCount {
+    fn set_count(self, cnt: i8) -> Self;
+}
+
 #[derive(Debug, Clone, Copy)]
 pub struct Weight {
     pub boden: f32,
@@ -23,10 +27,10 @@ pub struct Count {
     pub deckel: i8,
 }
 
-impl Count {
-    pub fn set_zarge_count(mut c: Count, cnt: i8) -> Count {
-        c.zarge = cnt;
-        return c;
+impl SetCount for Count {
+    fn set_count(mut self, cnt: i8) -> Count {
+        self.zarge = cnt;
+        return self;
     }
 }
 
