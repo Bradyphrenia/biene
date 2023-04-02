@@ -166,3 +166,14 @@ pub fn feed_need(target: f32, current: f32) -> f32 {
         feeding as f32
     };
 }
+
+pub fn feed_present(weight: Weight, count: Count, current: f32) -> f32 {
+    let feed = current - netto_weight(weight, count) - 2.0; // 2.0 bees or so
+    return if feed > 0.0 {
+        let feed = round(feed as f64, 2);
+        feed as f32
+    } else {
+        let feed = 0.0;
+        feed as f32
+    };
+}
