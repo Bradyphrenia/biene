@@ -1,5 +1,8 @@
 mod feeding;
-use feeding::calculations::{WarreWeights, WarreCounts, SetZargeCount, SetFeeder, netto_weight, feed_need, feed_present, brutto_weight};
+use feeding::calculations::{
+    brutto_weight, feed_need, feed_present, netto_weight, SetFeeder, SetZargeCount, WarreCounts,
+    WarreWeights,
+};
 
 pub fn main() {
     let testww = WarreWeights::new();
