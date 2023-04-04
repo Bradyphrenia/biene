@@ -10,7 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@esbuild/darwin-arm64": "^0.17.14",
+    "@esbuild/darwin-arch64": "^0.17.14",
     "@tauri-apps/api": "^1.2.0",
     "@tauri-apps/cli-darwin-arm64": "^1.2.3",
     "bulma": "^0.9.4",

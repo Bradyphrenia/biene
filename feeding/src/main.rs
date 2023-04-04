@@ -1,15 +1,10 @@
-use crate::feeding_mod::{
-    brutto_weight, feed_need, feed_present, netto_weight, SetFeeder, SetZargeCount, WarreCounts,
-    WarreWeights, Weight,
-};
-
-mod feeding_mod;
+mod feeding;
+use feeding::calculations::{WarreWeights, WarreCounts, SetZargeCount, SetFeeder, netto_weight, feed_need, feed_present, brutto_weight};
 
 pub fn main() {
     let testww = WarreWeights::new();
     let mut testwc = WarreCounts::new();
-    testwc = testwc.set_zarge_count(3);
-    testwc = testwc.set_feeder(false);
+    testwc = testwc.set_zarge_count(3).set_feeder(false);
     dbg!(&testwc);
     let wweight = netto_weight(testww, testwc);
     let fw = feed_present(testww, testwc, 28.0);
