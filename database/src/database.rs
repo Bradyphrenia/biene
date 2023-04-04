@@ -2,15 +2,15 @@ pub mod dbase {
     use postgres::{Client, NoTls, Row};
     use std::default::Default;
 
-// initialize the database
+    // initialize the database
 
     pub fn init_db() -> Client {
         // TODO?: () <- parameters for database access
-        let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
-        {
-            Ok(client) => client,
-            Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
-        };
+        let client =
+            match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls) {
+                Ok(client) => client,
+                Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
+            };
         return client;
     }
 
@@ -53,7 +53,7 @@ pub mod dbase {
         }
     }
 
-// function to query data from the table "volk"
+    // function to query data from the table "volk"
 
     pub fn volk_fetchone(sql: &str, mut client: Client) -> Volk {
         let default_vk: Volk = Default::default();
@@ -136,7 +136,7 @@ pub mod dbase {
         }
     }
 
-// function to query data from the table "durchsicht"
+    // function to query data from the table "durchsicht"
 
     pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
         let default_ds = Default::default();
@@ -148,9 +148,9 @@ pub mod dbase {
         return durchsicht; // return a struct
     }
 
-// function for executing a sql script against the database "biene"
-// returns 0 in case of an error happening, otherwise the lines affected
-// i hope this error handling and returning are clever :-)
+    // function for executing a sql script against the database "biene"
+    // returns 0 in case of an error happening, otherwise the lines affected
+    // i hope this error handling and returning are clever :-)
 
     pub fn db_execute(sql: &str, mut client: Client) -> u64 {
         // count of executed lines  in the database table
@@ -160,7 +160,7 @@ pub mod dbase {
         };
     }
 
-// function to query multiple lines of data from the table "volk"
+    // function to query multiple lines of data from the table "volk"
 
     pub fn volk_fetchall(sql: &str, mut client: Client) -> Vec<Volk> {
         let mut default_vkv = Vec::new();
@@ -176,7 +176,7 @@ pub mod dbase {
         return volk_vec; // return a vec struct
     }
 
-// function to query multiple lines of data from the table "durchsicht"
+    // function to query multiple lines of data from the table "durchsicht"
 
     pub fn durchsicht_fetchall(sql: &str, mut client: Client) -> Vec<Durchsicht> {
         let mut default_dsv = Vec::new();
