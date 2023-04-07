@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - ./data/db:/var/lib/postgresql/data/
+      - ./sql:/docker-entrypoint-initdb.d/
+      # - ./init_db.sql:/docker-entrypoint-initdb.d/1_init_db.sql
+      # - ./db_biene.sql:/docker-entrypoint-initdb.d/2_db_biene.sql
+      # - ./insert_all_data.sql:/docker-entrypoint-initdb.d/3_insert_all_data.sql
+      # - ./database/create_table.sql:/docker-entrypoint-initdb.d/2_create_table.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5433:5432'
+
+volumes:
+  db:
