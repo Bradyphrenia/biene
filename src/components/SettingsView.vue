@@ -68,7 +68,7 @@ function testDbConnection () {
 }
 
 const dbSettings = ref({})
-dbSettings.value = await getTauriStore("test");
+dbSettings.value = await getTauriStore("database");
 
 const url = ref(dbSettings.value?.url || '');
 const port = ref(dbSettings.value?.port || '');
@@ -84,6 +84,6 @@ async function saveSettings () {
     user: user.value,
     password: password.value
   };
-  await setTauriStore("test", settings);
+  await setTauriStore("database", settings);
 }
 </script>
