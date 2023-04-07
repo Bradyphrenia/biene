@@ -28,10 +28,15 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea/
-/database/target/
 
 # modules
 node_modules/
 
 # rust builds
 */target/
+
+# private data
+insert_all_data.sql
+
+# docker default database files
+data/*
