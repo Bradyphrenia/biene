@@ -1,14 +1,9 @@
-import Greet from "./components/Greet.vue";
 import ReviewView from "./components/ReviewView.vue";
 import SettingsView from "./components/SettingsView.vue";
 
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
-  {
-    path: '/test',
-    component: Greet,
-  },
   {
     path: '/review',
     component: ReviewView,
