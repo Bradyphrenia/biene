@@ -46,6 +46,11 @@
             v-model="password"
             @blur="saveSettings" />
         </c-configuration>
+        <c-configuration label="Test Database">
+          <c-button
+            label="test"
+            @click="testDbConnection"/>
+        </c-configuration>
 
       </div>
     </div>
@@ -54,7 +59,13 @@
 
 <script setup lan="ts">
 import { ref } from "vue";
+import { invoke } from "@tauri-apps/api";
 import { getTauriStore, setTauriStore } from "../store/store.ts";
+
+function testDbConnection () {
+  invoke('test_db_connection')
+    .then(res => console.log(res))
+}
 
 const dbSettings = ref({})
 dbSettings.value = await getTauriStore("test");
