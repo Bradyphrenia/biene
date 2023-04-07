@@ -3,10 +3,6 @@ use tauri::Wry;
 use std::path::PathBuf;
 use postgres::{Client, NoTls};
 
-#[tauri::command]
-pub fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
 use super::structs::Database;
 
 
