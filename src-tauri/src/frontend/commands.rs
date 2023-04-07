@@ -1,40 +1,14 @@
 use tauri_plugin_store::{JsonValue, StoreCollection, with_store};
 use tauri::Wry;
 use std::path::PathBuf;
-use serde::{Serialize, Deserialize};
+use postgres::{Client, NoTls};
 
 #[tauri::command]
 pub fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
+use super::structs::Database;
 
-
-#[derive(Debug, Serialize, Deserialize)]
-struct Database {
-    url: String,
-    port: String,
-    database: String,
-    user: String,
-    password: String,
-}
-
-impl Database {
-    fn new() -> Self {
-        Default::default()
-    }
-}
-
-impl Default for Database {
-    fn default() -> Self {
-        Database {
-            url: String::from("127.0.0.1"),
-            port: String::from("5432"),
-            database: String::from("biene"),
-            user: String::from("postgres"),
-            password: String::from("postgres")
-        }
-    }
-}
 
 fn get_from_store(
     app_handle: tauri::AppHandle,
