@@ -1,0 +1,16 @@
+[package]
+name = "feeding"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+round = "0.1.2"
+
+
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = "z"
+debug = false

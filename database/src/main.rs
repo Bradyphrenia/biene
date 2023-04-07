@@ -1,8 +1,8 @@
-mod database_mod;
+use database::dbase::{
+    durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
+};
 
-use crate::database_mod::init_db;
-use crate::database_mod::{db_execute, durchsicht_fetchall, durchsicht_fetchone};
-use crate::database_mod::{volk_fetchall, volk_fetchone};
+mod database;
 
 fn main() {
     /*
