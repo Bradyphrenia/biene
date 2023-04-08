@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Database {
@@ -16,14 +16,13 @@ impl Database {
 }
 
 impl Default for Database {
-
     fn default() -> Self {
         Database {
             url: String::from("127.0.0.1"),
             port: String::from("5432"),
             database: String::from("biene"),
             user: String::from("postgres"),
-            password: String::from("postgres")
+            password: String::from("postgres"),
         }
     }
 }
