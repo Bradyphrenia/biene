@@ -1,6 +1,6 @@
 use crate::database::dbase::Durchsicht;
 use database::dbase::{
-    durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
+    db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
 };
 
 mod database;
@@ -58,5 +58,8 @@ fn main() {
     ds.anz_brutwaben = input;
     let input = inp_str("Bemerkungen?");
     ds.memo = input;
-    dbg!(ds);
+    let sql = Durchsicht::ds_to_sql(&ds);
+    let db = init_db();
+    let lines = db_execute(sql.as_str(), db);
+    dbg!(lines);
 }

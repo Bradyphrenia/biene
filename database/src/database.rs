@@ -3,7 +3,6 @@ pub mod dbase {
     use std::default::Default;
 
     // initialize the database
-
     pub fn init_db() -> Client {
         // TODO?: () <- parameters for database access
         let client =
@@ -15,7 +14,7 @@ pub mod dbase {
     }
 
     // init struct "Volk" for the database query
-    #[derive(Default)]
+    #[derive(Default, Debug)]
     pub struct Volk {
         pub id: i32,
         pub volk: String,
@@ -66,7 +65,7 @@ pub mod dbase {
     }
 
     // init struct "Durchsicht" for the database query
-    #[derive(Default,Debug)]
+    #[derive(Default, Debug)]
     pub struct Durchsicht {
         pub id: i32,
         pub datum: String,
@@ -133,6 +132,29 @@ pub mod dbase {
                     None => "".to_string(),
                 },
             }
+        }
+    }
+
+    impl Durchsicht {
+        pub(crate) fn ds_to_sql(&self) -> String {
+            let mut sql = format!(
+                "INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, \
+             verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) \
+              VALUES ('{}', '{}', {}, {}, {}, {}, {}, {}, {}, {}, {}, '{}');",
+                &self.datum,
+                &self.volk,
+                &self.koenigin,
+                &self.stifte,
+                &self.offene,
+                &self.verdeckelte,
+                &self.weiselzelle,
+                &self.spielnaepfe,
+                &self.sanftmut,
+                &self.volksstaerke,
+                &self.anz_brutwaben,
+                &self.memo
+            );
+            return sql;
         }
     }
 
