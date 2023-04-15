@@ -4,6 +4,7 @@ use database::dbase::{
 };
 
 mod database;
+
 // to input a string
 fn inp_str(prompt: &str) -> String {
     let mut line = String::new();
@@ -12,6 +13,7 @@ fn inp_str(prompt: &str) -> String {
     let input = line.trim().to_string();
     input
 }
+
 // to input a boolean
 fn inp_bool(prompt: &str) -> bool {
     let mut line = String::new();
@@ -23,6 +25,7 @@ fn inp_bool(prompt: &str) -> bool {
         _ => false,
     }
 }
+
 // to input a number i16
 fn inp_number(prompt: &str) -> i16 {
     let mut line = String::new();
@@ -31,30 +34,31 @@ fn inp_number(prompt: &str) -> i16 {
     let input = line.trim().to_string();
     input.parse::<i16>().unwrap()
 }
+
 // console app
 fn main() {
     let mut ds: Durchsicht = Default::default();
-    let input = inp_str("Datum?");
+    let input = inp_str("Datum?  JJJJ-MM-TT");
     ds.datum = input;
-    let input = inp_str("Volk?");
+    let input = inp_str("Volk?  Volk 99");
     ds.volk = input;
-    let input = inp_bool("Königin?");
+    let input = inp_bool("Königin?  1/0");
     ds.koenigin = input;
-    let input = inp_bool("Stifte?");
+    let input = inp_bool("Stifte?  1/0");
     ds.stifte = input;
-    let input = inp_bool("offene Brut?");
+    let input = inp_bool("offene Brut?  1/0");
     ds.offene = input;
-    let input = inp_bool("verdeckelte Brut?");
+    let input = inp_bool("verdeckelte Brut?  1/0");
     ds.verdeckelte = input;
-    let input = inp_bool("Weiselzelle?");
+    let input = inp_bool("Weiselzelle?  1/0");
     ds.weiselzelle = input;
-    let input = inp_bool("Spielnäpfe?");
+    let input = inp_bool("Spielnäpfe?  1/0");
     ds.spielnaepfe = input;
-    let input = inp_number("Sanftmut?");
+    let input = inp_number("Sanftmut?  1 - 5");
     ds.sanftmut = input;
-    let input = inp_number("Volkstärke?");
+    let input = inp_number("Volkstärke?  1 - 5");
     ds.volksstaerke = input;
-    let input = inp_number("Anzahl Brutwaben?");
+    let input = inp_number("Anzahl Brutwaben?  9");
     ds.anz_brutwaben = input;
     let input = inp_str("Bemerkungen?");
     ds.memo = input;
