@@ -4,7 +4,7 @@ use database::dbase::{
 };
 
 mod database;
-
+// to input a string
 fn inp_str(prompt: &str) -> String {
     let mut line = String::new();
     println!("{}", prompt);
@@ -12,7 +12,7 @@ fn inp_str(prompt: &str) -> String {
     let input = line.trim().to_string();
     input
 }
-
+// to input a boolean
 fn inp_bool(prompt: &str) -> bool {
     let mut line = String::new();
     println!("{}", prompt);
@@ -23,7 +23,7 @@ fn inp_bool(prompt: &str) -> bool {
         _ => false,
     }
 }
-
+// to input a number i16
 fn inp_number(prompt: &str) -> i16 {
     let mut line = String::new();
     println!("{}", prompt);
@@ -31,7 +31,7 @@ fn inp_number(prompt: &str) -> i16 {
     let input = line.trim().to_string();
     input.parse::<i16>().unwrap()
 }
-
+// console app
 fn main() {
     let mut ds: Durchsicht = Default::default();
     let input = inp_str("Datum?");
@@ -61,5 +61,5 @@ fn main() {
     let sql = Durchsicht::ds_to_sql(&ds);
     let db = init_db();
     let lines = db_execute(sql.as_str(), db);
-    dbg!(lines);
+    println!("Es wurde(n) {} Zeile(n) hinzugefügt.", lines);
 }
