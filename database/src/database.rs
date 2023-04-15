@@ -66,7 +66,7 @@ pub mod dbase {
     }
 
     // init struct "Durchsicht" for the database query
-    #[derive(Default)]
+    #[derive(Default,Debug)]
     pub struct Durchsicht {
         pub id: i32,
         pub datum: String,
