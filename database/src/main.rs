@@ -23,9 +23,19 @@ fn inp_bool(prompt: &str) -> bool {
     }
 }
 
+fn inp_number(prompt: &str) -> i8 {
+    let mut line = String::new();
+    println!("{}", prompt);
+    std::io::stdin().read_line(&mut line).unwrap();
+    let input = line.trim().to_string();
+    input.parse::<i8>().unwrap()
+}
+
 fn main() {
     let test1 = inp_str("Volk? ");
     dbg!(test1);
     let test2 = inp_bool("Königin? ");
     dbg!(test2);
+    let test3 = inp_number("Anzahl Brutwaben? ");
+    dbg!(test3);
 }
