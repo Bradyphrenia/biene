@@ -1,6 +1,6 @@
 mod database;
 
-use crate::database::dbase::Durchsicht;
+use crate::database::dbase::{Durchsicht};
 use database::dbase::{
     db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
 };

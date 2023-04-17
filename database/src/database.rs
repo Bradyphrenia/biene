@@ -136,7 +136,7 @@ pub mod dbase {
     }
 
     impl Durchsicht {
-        pub(crate) fn ds_to_sql(&self) -> String {
+        pub fn ds_to_sql(&self) -> String {
             let mut sql = format!(
                 "INSERT INTO durchsicht (datum, volk, koenigin, stifte, offene, \
              verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo) \
