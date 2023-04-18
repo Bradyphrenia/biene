@@ -1,10 +1,11 @@
 mod database;
 
-use crate::database::dbase::{Durchsicht};
+use crate::database::dbase::Durchsicht;
 use database::dbase::{
     db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
 };
 
+// small cli :-)
 // to input a string
 fn inp_str(prompt: &str) -> String {
     let mut line = String::new();
