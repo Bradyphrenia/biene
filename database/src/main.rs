@@ -75,3 +75,4 @@ fn main() {
     let lines = db_execute(sql.as_str(), db);
     println!("Es wurde(n) {} Zeile(n) hinzugefügt.", lines);
 }
+
