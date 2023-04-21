@@ -3,7 +3,6 @@ use std::path::PathBuf;
 use tauri::Wry;
 use tauri_plugin_store::{with_store, JsonValue, StoreCollection};
 
-// use super::structs::Database;
 use super::super::communication::structs::DatabaseTable;
 
 use crate::database::structs::Database;
@@ -53,16 +52,6 @@ pub fn test_db_connection(
 }
 
 #[tauri::command]
-pub fn disconnect_db() {
-    // TODO: implement me
-}
 
-#[tauri::command]
-pub fn disconnect_db() {
-    // TODO: implement me
 }
-
-#[tauri::command]
-pub fn get_table_list(table_name: &str) {
-    // TODO: implement me
 }
