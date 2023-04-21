@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod frontend;
+mod database;
 
 fn main() {
     // connect to database
