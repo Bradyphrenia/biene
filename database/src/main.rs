@@ -72,7 +72,7 @@ fn main() {
     ds.sanftmut = input;
     let input = input_number("Volkstärke?  1 - 5", 1, 5);
     ds.volksstaerke = input;
-    let input = input_number("Anzahl Brutwaben?  9", 0, 24);
+    let input = input_number("Anzahl Brutwaben?  99", 0, 24);
     ds.anz_brutwaben = input;
     let input = input_string("Bemerkungen?");
     ds.memo = input;
