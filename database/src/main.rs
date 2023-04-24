@@ -7,67 +7,74 @@ use database::dbase::{
 
 // small cli :-)
 // to input a string
-fn inp_str(prompt: &str) -> String {
+fn input_string(prompt: &str) -> String {
     let mut line = String::new();
     println!("{}", prompt);
-
     std::io::stdin().read_line(&mut line).unwrap();
     let input = line.trim().to_string();
     println!("{}", &input);
     input
 }
 
-// to input a boolean
-fn inp_bool(prompt: &str) -> bool {
-    let mut line = String::new();
+// to input a number i16
+fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
+    let mut input = String::new();
+    let mut ret_value: i16;
     println!("{}", prompt);
-    std::io::stdin().read_line(&mut line).unwrap();
-    let input = line.trim().to_string();
-    let bool_ = match input.as_str() {
-        "1" => true,
-        "0" => false,
+    loop {
+        std::io::stdin().read_line(&mut input);
+        let test = &input.trim().parse::<i16>();
+        match &test {
+            Ok(ok) => ret_value = *ok,
+            Err(_e) => ret_value = -1,
+        }
+        if (ret_value != -1) && (ret_value >= min) && (ret_value <= max) {
+            break;
+        }
+        input = "".to_string();
+    }
+    println!("{}", &ret_value);
+    return ret_value;
+}
+
+// to input a boolean
+fn input_bool(prompt: &str) -> bool {
+    let input = input_number(prompt, 0, 1);
+    let bool_ = match input {
+        1 => true,
+        0 => false,
         _ => false,
     };
     println!("{}", &bool_);
     bool_
 }
 
-// to input a number i16
-fn inp_number(prompt: &str) -> i16 {
-    let mut line = String::new();
-    println!("{}", prompt);
-    std::io::stdin().read_line(&mut line).unwrap();
-    let input = line.trim().parse::<i16>().unwrap();
-    println!("{}", &input);
-    input
-}
-
 // console app
 fn main() {
     let mut ds: Durchsicht = Default::default();
-    let input = inp_str("Datum?  JJJJ-MM-TT");
+    let input = input_string("Datum?  JJJJ-MM-TT");
     ds.datum = input;
-    let input = inp_str("Volk?  Volk 99");
+    let input = input_string("Volk?  Volk 99");
     ds.volk = input;
-    let input = inp_bool("Königin?  1 | 0");
+    let input = input_bool("Königin?  1 | 0");
     ds.koenigin = input;
-    let input = inp_bool("Stifte?  1 | 0");
+    let input = input_bool("Stifte?  1 | 0");
     ds.stifte = input;
-    let input = inp_bool("offene Brut?  1 | 0");
+    let input = input_bool("offene Brut?  1 | 0");
     ds.offene = input;
-    let input = inp_bool("verdeckelte Brut?  1 | 0");
+    let input = input_bool("verdeckelte Brut?  1 | 0");
     ds.verdeckelte = input;
-    let input = inp_bool("Weiselzelle?  1 | 0");
+    let input = input_bool("Weiselzelle?  1 | 0");
     ds.weiselzelle = input;
-    let input = inp_bool("Spielnäpfe?  1 | 0");
+    let input = input_bool("Spielnäpfe?  1 | 0");
     ds.spielnaepfe = input;
-    let input = inp_number("Sanftmut?  1 - 5");
+    let input = input_number("Sanftmut?  1 - 5", 1, 5);
     ds.sanftmut = input;
-    let input = inp_number("Volkstärke?  1 - 5");
+    let input = input_number("Volkstärke?  1 - 5", 1, 5);
     ds.volksstaerke = input;
-    let input = inp_number("Anzahl Brutwaben?  9");
+    let input = input_number("Anzahl Brutwaben?  9", 0, 24);
     ds.anz_brutwaben = input;
-    let input = inp_str("Bemerkungen?");
+    let input = input_string("Bemerkungen?");
     ds.memo = input;
     let sql = Durchsicht::ds_to_sql(&ds);
     println!("{}", &sql);
@@ -75,4 +82,3 @@ fn main() {
     let lines = db_execute(sql.as_str(), db);
     println!("Es wurde(n) {} Zeile(n) hinzugefügt.", lines);
 }
-
