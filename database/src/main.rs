@@ -12,7 +12,6 @@ fn input_string(prompt: &str) -> String {
     println!("{}", prompt);
     std::io::stdin().read_line(&mut line).unwrap();
     let input = line.trim().to_string();
-    println!("{}", &input);
     input
 }
 
@@ -33,7 +32,6 @@ fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
         }
         input = "".to_string();
     }
-    println!("{}", &ret_value);
     return ret_value;
 }
 
@@ -45,7 +43,6 @@ fn input_bool(prompt: &str) -> bool {
         0 => false,
         _ => false,
     };
-    println!("{}", &bool_);
     bool_
 }
 
@@ -77,6 +74,7 @@ fn main() {
     let input = input_string("Bemerkungen?");
     ds.memo = input;
     let sql = Durchsicht::ds_to_sql(&ds);
+    println!("SQL-Script:");
     println!("{}", &sql);
     let db = init_db();
     let lines = db_execute(sql.as_str(), db);
