@@ -21,7 +21,9 @@ fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
     let mut ret_value: i16;
     println!("{}", prompt);
     loop {
-        std::io::stdin().read_line(&mut input);
+        std::io::stdin()
+            .read_line(&mut input)
+            .expect("Error reading input!");
         let test = &input.trim().parse::<i16>();
         match &test {
             Ok(ok) => ret_value = *ok,
