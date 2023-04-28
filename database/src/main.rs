@@ -38,12 +38,13 @@ fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
 // to input a boolean
 fn input_bool(prompt: &str) -> bool {
     let input = input_number(prompt, 0, 1);
-    let bool_ = match input {
-        1 => true,
-        0 => false,
-        _ => false,
+    return if let 1 = input {
+        let bool_ = true;
+        bool_
+    } else {
+        let bool_ = false;
+        bool_
     };
-    bool_
 }
 
 // console app
