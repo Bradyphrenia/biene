@@ -15,6 +15,18 @@ fn input_string(prompt: &str) -> String {
     input
 }
 
+//to input a valid date string
+fn input_date(prompt: &str) -> String {
+    let mut input = String::new();
+    loop {
+        input = input_string(prompt);
+        if date_string(&input) {
+            return input.to_string();
+        }
+        input = "".to_string();
+    }
+}
+
 // to input a number i16
 fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
     let mut input = String::new();
@@ -48,13 +60,23 @@ fn input_bool(prompt: &str) -> bool {
         bool_
     };
 }
+
 // tests the date string
-fn year_string(ys: &str) -> bool {
-    let year = &ys[..4];
-    let month = &ys[5..7];
-    let day = &ys[8..10];
-    let del1 = &ys[4..5];
-    let del2 = &ys[7..8];
+fn date_string(ds: &str) -> bool {
+    if ds.len() < 10 {
+        return false;
+    };
+    let year = &ds[..4];
+    let month = &ds[5..7];
+    let day = &ds[8..10];
+    let del1 = &ds[4..5];
+    let del2 = &ds[7..8];
+    if del1 != "-" {
+        return false;
+    }
+    if del2 != "-" {
+        return false;
+    }
     let ret_y: i16;
     let ret_m: i16;
     let ret_d: i16;
@@ -82,21 +104,15 @@ fn year_string(ys: &str) -> bool {
     if ret_d < 1 || ret_d > 31 {
         return false;
     }
-    if del1 != "-" {
-        return false;
-    }
-    if del2 != "-" {
-        return false;
-    }
     true
 }
 
 // console app
 fn main() {
-    let test = year_string("2020-01-01");
+    let test = date_string("2020-01-01");
     println!("{}", test);
     let mut ds: Durchsicht = Default::default();
-    let input = input_string("Datum?  JJJJ-MM-TT");
+    let input = input_date("Datum?  JJJJ-MM-TT");
     ds.datum = input;
     let input = input_string("Volk?  Volk 99");
     ds.volk = input;
