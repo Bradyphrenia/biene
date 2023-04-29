@@ -48,9 +48,53 @@ fn input_bool(prompt: &str) -> bool {
         bool_
     };
 }
+// tests the date string
+fn year_string(ys: &str) -> bool {
+    let year = &ys[..4];
+    let month = &ys[5..7];
+    let day = &ys[8..10];
+    let del1 = &ys[4..5];
+    let del2 = &ys[7..8];
+    let ret_y: i16;
+    let ret_m: i16;
+    let ret_d: i16;
+    let ty = &year.parse::<i16>();
+    match ty {
+        Ok(ok) => ret_y = *ok,
+        Err(_e) => return false,
+    }
+    if ret_y < 2020 || ret_y > 2030 {
+        return false;
+    }
+    let tm = &month.parse::<i16>();
+    match tm {
+        Ok(ok) => ret_m = *ok,
+        Err(_e) => return false,
+    }
+    if ret_m < 1 || ret_m > 12 {
+        return false;
+    }
+    let td = &day.parse::<i16>();
+    match td {
+        Ok(ok) => ret_d = *ok,
+        Err(_e) => return false,
+    }
+    if ret_d < 1 || ret_d > 31 {
+        return false;
+    }
+    if del1 != "-" {
+        return false;
+    }
+    if del2 != "-" {
+        return false;
+    }
+    true
+}
 
 // console app
 fn main() {
+    let test = year_string("2020-01-01");
+    println!("{}", test);
     let mut ds: Durchsicht = Default::default();
     let input = input_string("Datum?  JJJJ-MM-TT");
     ds.datum = input;
