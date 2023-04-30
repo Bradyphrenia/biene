@@ -10,7 +10,9 @@ use database::dbase::{
 fn input_string(prompt: &str) -> String {
     let mut line = String::new();
     println!("{}", prompt);
-    std::io::stdin().read_line(&mut line).unwrap();
+    std::io::stdin()
+        .read_line(&mut line)
+        .expect("Error reading input!");
     let input = line.trim().to_string();
     input
 }
