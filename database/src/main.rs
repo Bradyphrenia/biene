@@ -33,8 +33,8 @@ fn input_date(prompt: &str) -> String {
 fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
     let mut input = String::new();
     let mut ret_value: i16;
-    println!("{}", prompt);
     loop {
+        println!("{}", prompt);
         std::io::stdin()
             .read_line(&mut input)
             .expect("Error reading input!");
