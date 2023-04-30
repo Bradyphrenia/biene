@@ -61,7 +61,21 @@ fn input_bool(prompt: &str) -> bool {
     };
 }
 
-// tests the date string
+// for testing a date part for being in the right range
+fn date_part(part: &str, min: i16, max: i16) -> bool {
+    let test = &part.parse::<i16>();
+    match test {
+        Ok(ok) => {
+            if *ok < min || *ok > max {
+                return false;
+            }
+        }
+        Err(_e) => return false,
+    }
+    true
+}
+
+// tests the date string for being valid
 fn date_string(ds: &str) -> bool {
     if ds.len() < 10 {
         return false;
@@ -77,31 +91,13 @@ fn date_string(ds: &str) -> bool {
     if del2 != "-" {
         return false;
     }
-    let ret_y: i16;
-    let ret_m: i16;
-    let ret_d: i16;
-    let ty = &year.parse::<i16>();
-    match ty {
-        Ok(ok) => ret_y = *ok,
-        Err(_e) => return false,
-    }
-    if ret_y < 2020 || ret_y > 2030 {
+    if date_part(year, 2020, 2030) == false {
         return false;
     }
-    let tm = &month.parse::<i16>();
-    match tm {
-        Ok(ok) => ret_m = *ok,
-        Err(_e) => return false,
-    }
-    if ret_m < 1 || ret_m > 12 {
+    if date_part(month, 1, 12) == false {
         return false;
     }
-    let td = &day.parse::<i16>();
-    match td {
-        Ok(ok) => ret_d = *ok,
-        Err(_e) => return false,
-    }
-    if ret_d < 1 || ret_d > 31 {
+    if date_part(day, 1, 31) == false {
         return false;
     }
     true
