@@ -6,6 +6,8 @@ edition = "2021"
 [dependencies]
 postgres = "0.19.4"
 
+
+
 [profile.dev]
 opt-level = 0
 

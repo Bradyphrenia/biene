@@ -1,4 +1,5 @@
 pub mod dbase {
+
     use postgres::{Client, NoTls, Row};
     use std::default::Default;
 
@@ -155,6 +156,23 @@ pub mod dbase {
                 &self.anz_brutwaben,
                 &self.memo
             );
+            return sql;
+        }
+    }
+
+    impl Volk {
+        // create a sql script for data insert against table "volk" => vk
+        pub fn vk_to_sql(&self) -> String {
+            let sql = format!(
+                "INSERT INTO volk (volk, nummer, koenigin, erstellt, aufgeloest, typ, raehmchenmass, stand) VALUES ('{}', '{}', {}, {}, {}, {}, {}, {});",
+        &self.volk,
+        &self.nummer,
+        &self.koenigin,
+        &self.erstellt,
+        &self.aufgeloest,
+        &self.typ,
+        &self.raehmchenmass,
+        &self.stand);
             return sql;
         }
     }

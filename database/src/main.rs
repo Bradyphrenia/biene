@@ -3,6 +3,7 @@ mod database;
 
 use crate::cli::cli::{input_bool, input_date, input_number, input_string};
 use crate::database::dbase::Durchsicht;
+use crate::database::dbase::Volk;
 use database::dbase::{
     db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
 };
@@ -10,11 +11,18 @@ use database::dbase::{
 // console app
 fn main() {
     loop {
+        let mut vk: Volk = Default::default();
         let mut ds: Durchsicht = Default::default();
         let input = input_date("Datum?  JJJJ-MM-TT");
         ds.datum = input;
         let input = input_string("Volk?  Volk 99");
         ds.volk = input;
+        let sql = format!(
+            "SELECT id, volk, nummer, koenigin, erstellt::VARCHAR, aufgeloest::VARCHAR, typ, raehmchenmass, stand FROM volk WHERE volk = '{}';",
+            &ds.volk
+        );
+        vk = volk_fetchone(sql.as_str(), init_db());
+        println!("Königin: {}", vk.koenigin);
         let input = input_bool("Königin?  1 | 0");
         ds.koenigin = input;
         let input = input_bool("Stifte?  1 | 0");
@@ -38,8 +46,7 @@ fn main() {
         let sql = Durchsicht::ds_to_sql(&ds);
         println!("SQL-Script:");
         println!("{}", &sql);
-        let db = init_db();
-        let lines = db_execute(sql.as_str(), db);
+        let lines = db_execute(sql.as_str(), init_db());
         println!("Es wurde(n) {} Zeile(n) hinzugefügt.", lines);
         println!();
         let input = input_bool("Weitere Durchsichten?  1 | 0");
