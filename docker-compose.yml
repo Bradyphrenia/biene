@@ -2,6 +2,7 @@ version: '3'
 
 services:
   postgres:
+    container_name: "database"
     image: postgres:latest
     volumes:
       - ./data/db:/var/lib/postgresql/data/
@@ -17,5 +18,11 @@ services:
     ports:
       - '5433:5432'
 
+  tauri:
+    container_name: "biene"
+    build: .
+    # volumes:
+    #   - .:/usr/src/biene
+
 volumes:
-  db:
+  postgres:
