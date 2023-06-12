@@ -26,3 +26,7 @@ A `Dockerfile` is included to run the application from within a Docker container
     1. `ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')`
     2. `export DISPLAY="$ip:0.0"` (export local monitor by setting environmental `DISPLAY` variable)
     3. `xhost +` (grant access for all)
+
+The `docker-compose.yml` also creates some testing database.
+
+When running `docker-compose up`, be aware to have XQuartz running (`xhost +`)

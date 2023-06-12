@@ -21,6 +21,8 @@ services:
   tauri:
     container_name: "biene"
     build: .
+    environment:
+      - DISPLAY=host.docker.internal:0
     # volumes:
     #   - .:/usr/src/biene
 
