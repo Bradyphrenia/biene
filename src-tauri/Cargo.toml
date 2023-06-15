@@ -2,7 +2,7 @@
 name = "bees"
 version = "0.1.0"
 description = "A desktop application which helps you to keep track of your bee hives"
-authors = ["kingkaos"]
+authors = ["Bradyphrenia, kingkaos"]
 license = ""
 repository = ""
 edition = "2021"
