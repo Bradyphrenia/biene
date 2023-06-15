@@ -22,5 +22,6 @@ RUN cargo -V
 WORKDIR /usr/src/biene
 # copy data to working dir
 COPY . .
+
 RUN npm install
 CMD ["npm", "run", "tauri", "dev"]
