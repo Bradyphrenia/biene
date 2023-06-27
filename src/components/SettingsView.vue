@@ -47,13 +47,20 @@
             @blur="saveSettings" />
         </c-configuration>
         <c-configuration label="Test Database">
-          <c-button
-            label="test"
-            @click="testDbConnection"/>
+          <div class="is-horizontal">
+            <c-button
+              label="test"
+              @click="testDbConnection"/>
+              <div class="has-test-danger">
+                {{ connectionTestResponse.msg }}
+              </div>
+          </div>
         </c-configuration>
-
       </div>
     </div>
+            <c-button
+            label="ttt"
+            @click="test"/>
   </div>
 </template>
 
@@ -61,11 +68,23 @@
 import { ref } from "vue";
 import { invoke } from "@tauri-apps/api";
 import { getTauriStore, setTauriStore } from "../store/store.ts";
+import { useDatabaseStore } from "../store/database.ts";
 
+const connectionTestResponse = ref('')
 function testDbConnection () {
   invoke('test_db_connection')
-    .then(res => console.log(res))
+    .then(response => {
+      connectionTestResponse.value = response
+  })
 }
+
+async function test () {
+    // console.log(await invoke('connect_to_db'))
+    connectionTestResponse.value = await invoke('connect_to_db')
+}
+
+const databaseStore = useDatabaseStore()
+console.log(databaseStore)
 
 const dbSettings = ref({})
 dbSettings.value = await getTauriStore("database");
