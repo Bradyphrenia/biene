@@ -5,7 +5,6 @@ use tauri_plugin_store::{with_store, JsonValue, StoreCollection};
 
 use super::structs::Database;
 
-
 fn get_from_store(
     app_handle: tauri::AppHandle,
     stores: tauri::State<'_, StoreCollection<Wry>>,

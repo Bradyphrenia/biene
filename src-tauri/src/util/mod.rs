@@ -1,4 +1,4 @@
-pub mod structs;
 pub mod store;
+pub mod structs;
 
 use structs::*;
