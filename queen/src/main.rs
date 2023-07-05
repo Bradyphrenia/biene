@@ -6,3 +6,4 @@ fn main() {
     println!("Transferring cells allowed on {}.", dt + Duration::days(10));
     println!("Queens emerging on {}.", dt + Duration::days(11));
 }
+
