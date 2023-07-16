@@ -1,7 +1,7 @@
 use chrono::{Duration, NaiveDate};
 
 fn main() {
-    let breeding = queen_raring(2023, 13, 2);
+    let breeding = queen_raring(2023, 7, 2);
     println!("Caging cells on {}.", breeding.0);
     println!("Transferring cells allowed on {}.", breeding.1);
     println!("Queens emerging on {}.", breeding.2);
