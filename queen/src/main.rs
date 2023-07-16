@@ -11,9 +11,9 @@ fn queen_raring(year: i32, month: u32, day: u32) -> (NaiveDate, NaiveDate, Naive
     let dt = match NaiveDate::from_ymd_opt(year, month, day) {
         Some(dt) =>
             (
-                dt + Duration::days(5),
-                dt + Duration::days(10),
-                dt + Duration::days(11),
+                dt + Duration::days(5), //Caging cells on
+                dt + Duration::days(10), //Transferring cells allowed on
+                dt + Duration::days(11), //Queens emerging on
             ),
         None => (NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(), NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(), NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap())
     };
