@@ -15,7 +15,7 @@ fn main() {
         emerge: NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(),
     };
     breeding.queen_raring(2023, 7, 2);
-    println!("Started series on {}.", breeding.larva);
+    println!("Starting series on {}.", breeding.larva);
     println!("Caging cells on {}.", breeding.caging);
     println!("Transferring cells allowed on {}.", breeding.transfer);
     println!("Queens emerging on {}.", breeding.emerge);
