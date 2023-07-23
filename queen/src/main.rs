@@ -25,12 +25,12 @@ impl QueenRaring {
     fn queen_raring(&mut self, year: i32, month: u32, day: u32) -> () {
         match NaiveDate::from_ymd_opt(year, month, day) {
             Some(dt) => {
-                self.larva = dt;
+                self.larva = dt; //Starting on
                 self.caging = dt + Duration::days(5); //Caging cells on
                 self.transfer = dt + Duration::days(10); //Transferring cells allowed on
                 self.emerge = dt + Duration::days(11); //Queens emerging on
             }
-            None => (todo!()),
-        };
+            None => (),
+        }
     }
 }
