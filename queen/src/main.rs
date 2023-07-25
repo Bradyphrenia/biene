@@ -22,11 +22,12 @@ impl QueenRaring {
 }
 
 fn main() {
+    let default = NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap();
     let mut breeding = QueenRaring {
-        larva: NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(),
-        caging: NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(),
-        transfer: NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(),
-        emerge: NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap(),
+        larva: default,
+        caging: default,
+        transfer: default,
+        emerge: default,
     };
     breeding.queen_raring(2023, 7, 2);
     println!("Starting series on {}.", breeding.larva);
