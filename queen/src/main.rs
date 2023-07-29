@@ -24,9 +24,9 @@ impl QueenRaring {
 fn main() {
     let default = NaiveDate::parse_from_str("2020-1-1", "%Y-%m-%d").unwrap();
     let mut breeding = QueenRaring {
-        larva: default,
-        caging: default,
-        transfer: default,
+        larva: default.clone(),
+        caging: default.clone(),
+        transfer: default.clone(),
         emerge: default,
     };
     breeding.queen_raring(2023, 7, 2);
