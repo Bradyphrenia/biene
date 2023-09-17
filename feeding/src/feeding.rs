@@ -1,7 +1,6 @@
 // modul for calculating the feedings etc.
 pub mod calculations {
     use round::round;
-    use std::arch::x86_64::_mm_loadl_epi64;
 
     pub trait SetZargeCount {
         fn set_zarge_count(self, cnt: i8) -> Self;
