@@ -11,14 +11,11 @@ mod util;
 mod diesel;
 
 fn init_menu() -> Menu {
-    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
-    let close = CustomMenuItem::new("close".to_string(), "Close");
     let settings = CustomMenuItem::new("settings".to_string(), "Settings...");
     let submenu = Submenu::new(
         "Bees",
         Menu::new()
             .add_native_item(MenuItem::About("Bees".to_string(), AboutMetadata::new()))
-            .add_item(quit)
             .add_item(settings)
             .add_native_item(MenuItem::CloseWindow)
             .add_native_item(MenuItem::Quit)
@@ -27,8 +24,8 @@ fn init_menu() -> Menu {
         .add_submenu(submenu)
 }
 
-fn app() -> App {
-    let app = tauri::Builder::default()
+fn init_app() -> App {
+    tauri::Builder::default()
         .menu(init_menu())
         .setup(|app| {
             let main_window = app.get_window("main").unwrap();
@@ -56,13 +53,10 @@ fn app() -> App {
         .invoke_handler(tauri::generate_handler![commands::connect_to_db, commands::test,])
         .plugin(tauri_plugin_store::Builder::default().build())
         .build(tauri::generate_context!())
-        .expect("error while running tauri application");
-        // .run(tauri::generate_context!())
-    app
+        .expect("error while running tauri application")
 }
 
 fn main() {
-    // Let's get started :)
-    let tt = app();
-    tt.run(|_, _| {})
+    let app = init_app();
+    app.run(|_, _| {})
 }
