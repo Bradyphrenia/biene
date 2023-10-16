@@ -29,7 +29,6 @@ fn init_app() -> App {
         .setup(|app| {
             let main_window = app.get_window("main").unwrap();
             let handle = app.handle();
-            let window = main_window.clone();
 
             main_window.on_menu_event(move |event| match event.menu_item_id() {
                 "settings" => {
