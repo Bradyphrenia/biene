@@ -5,6 +5,10 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/settings',
+  },
+  {
     path: '/review',
     component: ReviewView,
   },
