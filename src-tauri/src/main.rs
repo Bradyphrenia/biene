@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use tauri::{CustomMenuItem, Menu, MenuItem, Submenu, Manager, WindowBuilder, AboutMetadata};
 
 mod commands;
 mod communication;
@@ -19,10 +18,10 @@ fn init_menu() -> Menu {
             .add_native_item(MenuItem::About("Bees".to_string(), AboutMetadata::new()))
             .add_item(quit)
             .add_item(settings)
+            .add_native_item(MenuItem::CloseWindow)
             .add_native_item(MenuItem::Quit)
     );
     Menu::new()
-        // .add_item(CustomMenuItem::new("hide", "Hide"))
         .add_submenu(submenu)
 }
 
