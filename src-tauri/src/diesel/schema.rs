@@ -18,13 +18,4 @@ diesel::table! {
     }
 }
 
-diesel::table! {
-    posts (id) {
-        id -> Int4,
-        title -> Varchar,
-        body -> Text,
-        published -> Bool,
-    }
-}
-
-diesel::allow_tables_to_appear_in_same_query!(durchsicht, posts,);
+diesel::allow_tables_to_appear_in_same_query!(durchsicht,);
