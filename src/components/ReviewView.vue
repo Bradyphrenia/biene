@@ -18,8 +18,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>...</td>
+        <tr v-for="elem in current_review_table" :key="elem.id">
+	  <td></td>
+	  <td>{{ elem.volk }}</td>
+	  <td>{{ elem.koenigin }}</td>
+	  <td>{{ elem.stifte }}</td>
+	  <td>{{ elem.offene }}</td>
+	  <td>{{ elem.verdeckelte }}</td>
+	  <td>{{ elem.weiselzelle }}</td>
+	  <td>{{ elem.spielnaepfe }}</td>
+	  <td>{{ elem.sanftmut }}</td>
+	  <td>{{ elem.volksstaerke }}</td>
+	  <td>{{ elem.anz_brutwaben }}</td>
+	  <td>{{ elem }}</td>
         </tr>
       </tbody>
     </table>
@@ -27,5 +38,29 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+import { useReviewStore } from "../store/review";
 
+// TODO: move interface to separate file and export
+interface Durchsicht {
+  id: number,
+  volk: string,
+  koenigin: boolean,
+  stifte: boolean,
+  offene: boolean,
+  verdeckelte: boolean,
+  weiselzelle: number,
+  spielnaepfe: boolean,
+  sanftmut: boolean,
+  volksstaerke: number,
+  anz_brutwaben: number,
+};
+
+const current_review_table = ref<Durchsicht[]>([])
+const reviewStore = useReviewStore();
+try {
+  current_review_table.value = await reviewStore.get_review_table();
+} catch (err) {
+  console.error(err)
+}
 </script>
