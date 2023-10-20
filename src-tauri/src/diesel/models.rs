@@ -44,7 +44,16 @@ impl serde::Serialize for Durchsicht {
         let mut s = serializer.serialize_struct("Durchsicht", 1)?;
         s.serialize_field("id", &self.id)?;
         // s.serialize_field("datum", &self.datum)?;
+        s.serialize_field("volk", &self.volk)?;
         s.serialize_field("koenigin", &self.koenigin)?;
+        s.serialize_field("stifte", &self.stifte)?;
+        s.serialize_field("offene", &self.offene)?;
+        s.serialize_field("verdeckelte", &self.verdeckelte)?;
+        s.serialize_field("weiselzelle", &self.weiselzelle)?;
+        s.serialize_field("spielnaepfe", &self.spielnaepfe)?;
+        s.serialize_field("sanftmut", &self.sanftmut)?;
+        s.serialize_field("volksstaerke", &self.volksstaerke)?;
+        s.serialize_field("anz_brutwaben", &self.anz_brutwaben)?;
         s.end()
     }
 }
