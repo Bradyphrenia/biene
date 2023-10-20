@@ -47,7 +47,7 @@ fn init_app() -> App {
         })
         .invoke_handler(tauri::generate_handler![
             commands::connect_to_db,
-            commands::test,
+            commands::request_review,
         ])
         .plugin(tauri_plugin_store::Builder::default().build())
         .build(tauri::generate_context!())
