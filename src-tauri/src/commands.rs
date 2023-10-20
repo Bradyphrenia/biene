@@ -6,6 +6,11 @@ use tauri_plugin_store::StoreCollection;
 use crate::util::store::get_db_from_store;
 use crate::util::structs::{Database, TauriCode, TauriResponse};
 
+use crate::diesel::models::{self, *};
+use crate::diesel::schema::durchsicht::dsl::*;
+
+use diesel::prelude::*;
+
 #[tauri::command]
 pub fn connect_to_db(
     app_handle: tauri::AppHandle,
@@ -36,6 +41,23 @@ pub fn connect_to_db(
             msg: String::from(format!("Connection to database failed: {:?}", e)),
         },
     }
+}
+
+/// Reading durchsicht table from database and providing results to frontend
+#[tauri::command]
+pub fn request_review(
+    app_handle: tauri::AppHandle,
+    store: tauri::State<'_, StoreCollection<Wry>>,
+) -> Result<Vec<models::Durchsicht>, String> {
+    let connection = &mut connect(app_handle, store);
+
+    let results: Vec<_> = durchsicht
+        .select(Durchsicht::as_select())
+        .load(connection)
+        .expect("Error loading durchsicht");
+
+    // TODO: Return Object with status number
+    Ok(results)
 }
 
 #[tauri::command]
