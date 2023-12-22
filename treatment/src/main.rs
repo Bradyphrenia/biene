@@ -19,8 +19,8 @@ pub fn main() {
         println!("{}", &sql);
         let test = db_execute(sql.as_str(), init_db());
         if test == 1 {
-            println!("Done.")
-        else {
+            println!("Done.");
+        } else {
             println!("Error.");
         }
     }
