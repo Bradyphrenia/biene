@@ -12,7 +12,7 @@ pub fn main() {
     let sql_1 = "INSERT INTO behandlung (datum, volk, koenigin, stifte, offene, verdeckelte, weiselzelle, spielnaepfe, sanftmut, volksstaerke, anz_brutwaben, memo, krankheit, behandlung, anwendungsform, menge, mengeneinheit, konzentration, wartezeit, zulassungsnummer, meldepflicht) VALUES ('";
     let sql_2 = "', '";
     let sql_3 = "', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'VarroMed', 'geträufelt', 10, 'ml', NULL, NULL, NULL, NULL);";
-    let date = input_date("Datum der Behandlung: ");
+    let date = input_date("Datum der Behandlung:");
     for hive in &hives {
         let sql = format!("{}{}{}{}{}", sql_1, date, sql_2, hive, sql_3);
         println!("{}", &sql);
