@@ -26,7 +26,7 @@ fn process_hive(hive: &str, date: String, db: Client) {
 
 pub fn main() {
     let date = input_date("Datum der Behandlung:");
-    for &hive in &HIVE_NAMES {
-        process_hive(hive, date.to_string(), init_db());
+    for hive in HIVE_NAMES {
+        process_hive(&hive, date.to_string(), init_db());
     }
 }
