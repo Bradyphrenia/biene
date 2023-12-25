@@ -14,7 +14,7 @@ impl Database {
         Default::default()
     }
 }
-cd
+
 impl Default for Database {
     fn default() -> Self {
         Database {

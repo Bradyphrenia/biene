@@ -5,8 +5,8 @@ use tauri_plugin_store::{with_store, JsonValue, StoreCollection};
 
 use super::super::communication::structs::DatabaseTable;
 
-use crate::database::structs::Database;
 use crate::database::handler::connect;
+use crate::database::structs::Database;
 
 fn get_from_store(
     app_handle: tauri::AppHandle,
@@ -49,9 +49,4 @@ pub fn test_db_connection(
         Ok(_) => format!("Success"),
         Err(err) => format!("Failed with: {}", err),
     }
-}
-
-#[tauri::command]
-
-}
 }
