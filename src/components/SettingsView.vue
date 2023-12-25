@@ -2,7 +2,7 @@
   <div class="p-6 lg:flex-1">
     <div class="content card">
       <div class="card-header-title">
-        Database Settings
+        Database Settings <c-icon :icon="icons.databaseOutline"/>
       </div>
       <div class="card-content">
 
