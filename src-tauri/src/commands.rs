@@ -7,7 +7,6 @@ use crate::util::store::get_db_from_store;
 use crate::util::structs::{Database, TauriCode, TauriResponse};
 
 use crate::diesel::models::{self, *};
-// use crate::diesel::schema::posts::dsl::*;
 use crate::diesel::schema::durchsicht::dsl::*;
 
 
