@@ -7,7 +7,7 @@ pub mod dbase {
     pub fn init_db() -> Client {
         // TODO?: () <- parameters for database access
         let client =
-            match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls) {
+            match Client::connect("postgresql://postgres:postgres@localhost:5432/biene_test", NoTls) {
                 Ok(client) => client,
                 Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
             };
