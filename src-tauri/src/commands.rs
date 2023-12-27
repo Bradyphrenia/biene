@@ -10,7 +10,7 @@ use crate::diesel::models::{self, *};
 // use crate::diesel::schema::posts::dsl::*;
 use crate::diesel::schema::durchsicht::dsl::*;
 
-use diesel::prelude::*;
+
 
 #[tauri::command]
 pub fn connect_to_db(
@@ -83,7 +83,7 @@ pub fn request_review(
 
 #[tauri::command]
 pub fn get_durchsicht(app_handle: tauri::AppHandle, store: tauri::State<'_, StoreCollection<Wry>>) {
-    let connection = &mut connect(app_handle, store);
+    let _connection = &mut connect(app_handle, store);
 }
 
 #[tauri::command]

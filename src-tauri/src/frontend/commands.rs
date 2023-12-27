@@ -1,9 +1,9 @@
-use postgres::{Client, NoTls};
+
 use std::path::PathBuf;
 use tauri::Wry;
 use tauri_plugin_store::{with_store, JsonValue, StoreCollection};
 
-use super::super::communication::structs::DatabaseTable;
+
 
 use crate::database::handler::connect;
 use crate::database::structs::Database;

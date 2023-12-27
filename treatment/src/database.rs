@@ -1,4 +1,4 @@
-pub mod database {
+pub mod dbase {
 
     use postgres::{Client, NoTls, Row};
     use std::default::Default;

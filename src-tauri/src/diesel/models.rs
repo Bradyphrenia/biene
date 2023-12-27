@@ -1,5 +1,5 @@
 use diesel::prelude::*;
-use diesel::sql_types::SmallInt;
+
 use serde::{ser::SerializeStruct, Deserialize, Serialize};
 #[derive(Serialize, Deserialize)]
 pub enum DatabaseTable {
