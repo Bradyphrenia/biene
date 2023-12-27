@@ -8,6 +8,16 @@
 
 ## Development
 
+`biene` uses `diesel` for database handling (supports multiple database types). Thus, `diesel_cli` must be available. A detailed description can be found in `diesel` [Getting Started](https://diesel.rs/guides/getting-started).
+
+In addition, the `DATABASE_URL` environmental variable has to be set either using `export DATABASE_URL=postgres://username:password@localhost:port/database_name` or create a `.env` file in the project root folder with the variable:
+
+```sh
+echo DATABASE_URL=postgres://username:password@localhost:port/database_name > .env
+```
+
+Be aware that diesel might apply changes on your database so you should consider using a sample database and load a dump of your data within this isolated database.
+
 To build the application a current node.js and Rust version is required.
 
 Once both is installed and prepared. You should use the following steps to run the app in development mode:
