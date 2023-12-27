@@ -1,8 +1,5 @@
-#[path = "../src/mod.rs"]
-mod database;
-
-use crate::database::database::dbase::Durchsicht;
-use crate::database::database::dbase::{
+use database::dbase::Durchsicht;
+use database::dbase::{
     db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
 };
 

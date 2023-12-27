@@ -2,10 +2,10 @@ pub mod cli;
 pub mod dbase;
 
 use cli::{input_bool, input_date, input_number, input_string};
-use dbase::{Durchsicht, Volk};
 use dbase::{
     db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
 };
+use dbase::{Durchsicht, Volk};
 
 // console app
 fn main() {

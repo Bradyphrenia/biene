@@ -4,11 +4,13 @@ use std::default::Default;
 // initialize the database
 pub fn init_db() -> Client {
     // TODO?: () <- parameters for database access
-    let client =
-        match Client::connect("postgresql://postgres:postgres@localhost:5432/biene_test", NoTls) {
-            Ok(client) => client,
-            Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
-        };
+    let client = match Client::connect(
+        "postgresql://postgres:postgres@localhost:5432/biene_test",
+        NoTls,
+    ) {
+        Ok(client) => client,
+        Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
+    };
     return client;
 }
 
