@@ -1,5 +1,6 @@
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
+use log::{info, warn};
 use tauri::{self, Wry};
 use tauri_plugin_store::StoreCollection;
 
@@ -8,8 +9,6 @@ use crate::util::structs::{Database, TauriCode, TauriResponse};
 
 use crate::diesel::models::{self, *};
 use crate::diesel::schema::durchsicht::dsl::*;
-
-
 
 #[tauri::command]
 pub fn connect_to_db(
@@ -46,7 +45,7 @@ pub fn connect_to_db(
 pub fn connect(
     app_handle: tauri::AppHandle,
     store: tauri::State<'_, StoreCollection<Wry>>,
-) -> PgConnection {
+) -> Option<PgConnection> {
     let Database {
         user,
         password,
@@ -55,34 +54,33 @@ pub fn connect(
         database,
     } = get_db_from_store(app_handle, store);
 
-    // TODO: add tauri store content
-    let connection = PgConnection::establish(&format!(
+    PgConnection::establish(&format!(
         "postgres://{}:{}@{}:{}/{}",
         user, password, url, port, database,
-    ))
-    .unwrap_or_else(|_| panic!("Error connecting to {}", url));
-    connection
+    )).ok()
 }
 
+// TODO: retun TauriResponse
 #[tauri::command]
 pub fn request_review(
     app_handle: tauri::AppHandle,
     store: tauri::State<'_, StoreCollection<Wry>>,
 ) -> Result<Vec<models::Durchsicht>, String> {
-    let connection = &mut connect(app_handle, store);
-
-    let results: Vec<_> = durchsicht
-        .select(Durchsicht::as_select())
-        .load(connection)
-        .expect("Error loading durchsicht");
-
-    // TODO: Return Object with status number
-    Ok(results)
-}
-
-#[tauri::command]
-pub fn get_durchsicht(app_handle: tauri::AppHandle, store: tauri::State<'_, StoreCollection<Wry>>) {
-    let _connection = &mut connect(app_handle, store);
+    match connect(app_handle.clone(), store.clone()) {
+        Some(_) => {
+            let connection = &mut connect(app_handle.clone(), store.clone()).unwrap();
+            info!("Database found.");
+            let results: Vec<_> = durchsicht
+                .select(Durchsicht::as_select())
+                .load(connection)
+                .expect("Error loading durchsicht");
+            return Ok(results);
+        }
+        None => {
+            warn!("Could not find database");
+            return Err("Database not found".to_string());
+        }
+    }
 }
 
 #[tauri::command]
