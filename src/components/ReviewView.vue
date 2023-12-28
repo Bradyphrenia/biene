@@ -1,5 +1,8 @@
 <template>
-  <div class="p-6 lg:flex-1">
+  <div v-if="!hasDatabase" class="p-6 lg:flex-1">
+    No database was found. Please check if you have the right settings and reload the application.
+  </div>
+  <div v-if="hasDatabase" class="p-6 lg:flex-1">
     <table class="table is-narrow is-fullwidth is-hoverable is-striped">
       <thead>
         <tr>
@@ -56,11 +59,14 @@ interface Durchsicht {
   anz_brutwaben: number,
 };
 
+const hasDatabase = ref(true);
+
 const current_review_table = ref<Durchsicht[]>([])
 const reviewStore = useReviewStore();
 try {
   current_review_table.value = await reviewStore.get_review_table();
 } catch (err) {
+  hasDatabase.value = false;
   console.error(err)
 }
 </script>
