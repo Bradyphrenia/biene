@@ -1,8 +1,6 @@
 use database::cli::input_date;
 use database::dbase::{db_execute, init_db};
 
-// use crate::cli::cli::input_date;
-
 const HIVE_NAMES: [&str; 8] = [
     "Volk 01", "Volk 02", "Volk 03", "Volk 04", "Volk 05", "Volk 06", "Volk 07", "Volk 08",
 ];
