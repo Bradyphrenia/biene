@@ -1,6 +1,6 @@
 use database::cli::{input_bool, input_date, input_number, input_string};
 use database::dbase::{
-    db_execute, durchsicht_fetchall, durchsicht_fetchone, init_db, volk_fetchall, volk_fetchone,
+    db_execute, init_db, volk_fetchone,
 };
 use database::dbase::{Durchsicht, Volk};
 

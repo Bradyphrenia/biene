@@ -1,0 +1,13 @@
+
+> bees@0.0.0 tauri
+> tauri dev
+
+
+> bees@0.0.0 dev
+> vite
+
+
+  VITE v4.5.1  ready in 213 ms
+
+  ➜  Local:   http://localhost:1420/
+  ➜  Network: use --host to expose

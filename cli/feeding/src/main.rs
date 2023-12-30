@@ -1,4 +1,4 @@
-mod feeding;
+pub mod feeding;
 use crate::feeding::calculations::{
     DadantCounts, DadantWeights, NormalmassCounts, NormalmassWeights,
 };

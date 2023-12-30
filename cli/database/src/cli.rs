@@ -1,44 +1,47 @@
-use chrono::NaiveDate;
-
 // small cli :-)
 // to input a string
 pub fn input_string(prompt: &str) -> String {
     let mut line = String::new();
-    match std::io::stdin().read_line(&mut line) {
-        Ok(_) => return line.trim().to_string(),
-        Err(e) => panic!("Error reading input: {}", e),
-    }
+    println!("{}", prompt);
+    std::io::stdin()
+        .read_line(&mut line)
+        .expect("Error reading input!");
+    let input = line.trim().to_string();
+    input
 }
 
 //to input a valid date string
 pub fn input_date(prompt: &str) -> String {
-    let mut input = input_string(prompt);
+    let mut input = String::new();
     loop {
-        check_date(input)
-    }
-}
-
-pub fn check_date(input: String) -> String {
-    // throw error on invalid input
-    match NaiveDate::parse_from_str(&input, "%Y-%m-%d") {
-        Ok(_) => return input,
-        Err(_) => return String::new(),
+        input = input_string(prompt);
+        if date_string(&input) {
+            return input.to_string();
+        }
+        input = "".to_string();
     }
 }
 
 // to input a number i16
 pub fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
-    let mut input = input_string(prompt);
+    let mut input = String::new();
+    let mut ret_value: i16;
     loop {
-        check_number(input, min, max)
+        println!("{}", prompt);
+        std::io::stdin()
+            .read_line(&mut input)
+            .expect("Error reading input!");
+        let test = &input.trim().parse::<i16>();
+        match &test {
+            Ok(ok) => ret_value = *ok,
+            Err(_e) => ret_value = -1,
+        }
+        if (ret_value != -1) && (ret_value >= min) && (ret_value <= max) {
+            break;
+        }
+        input = "".to_string();
     }
-}
-
-pub fn check_number(input: String, min: i16, max: i16) -> i16 {
-    match input.parse::<i16>() {
-        Ok(ok) if ok >= min && ok <= max => ok,
-        _ => panic!("Invalid number: {}", input),
-    }
+    return ret_value;
 }
 
 // to input a boolean
@@ -94,3 +97,4 @@ fn date_string(ds: &str) -> bool {
     }
     true
 }
+
