@@ -71,7 +71,7 @@ fn date_part(part: &str, min: i16, max: i16) -> bool {
 }
 
 // tests the date string for being valid
-fn date_string(ds: &str) -> bool {
+pub fn date_string(ds: &str) -> bool {
     if ds.len() < 10 {
         return false;
     };
