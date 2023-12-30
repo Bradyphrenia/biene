@@ -1,47 +1,44 @@
+use chrono::NaiveDate;
+
 // small cli :-)
 // to input a string
 pub fn input_string(prompt: &str) -> String {
     let mut line = String::new();
-    println!("{}", prompt);
-    std::io::stdin()
-        .read_line(&mut line)
-        .expect("Error reading input!");
-    let input = line.trim().to_string();
-    input
+    match std::io::stdin().read_line(&mut line) {
+        Ok(_) => return line.trim().to_string(),
+        Err(e) => panic!("Error reading input: {}", e),
+    }
 }
 
 //to input a valid date string
 pub fn input_date(prompt: &str) -> String {
-    let mut input = String::new();
+    let mut input = input_string(prompt);
     loop {
-        input = input_string(prompt);
-        if date_string(&input) {
-            return input.to_string();
-        }
-        input = "".to_string();
+        check_date(input)
+    }
+}
+
+pub fn check_date(input: String) -> String {
+    // throw error on invalid input
+    match NaiveDate::parse_from_str(&input, "%Y-%m-%d") {
+        Ok(_) => return input,
+        Err(_) => return String::new(),
     }
 }
 
 // to input a number i16
 pub fn input_number(prompt: &str, min: i16, max: i16) -> i16 {
-    let mut input = String::new();
-    let mut ret_value: i16;
+    let mut input = input_string(prompt);
     loop {
-        println!("{}", prompt);
-        std::io::stdin()
-            .read_line(&mut input)
-            .expect("Error reading input!");
-        let test = &input.trim().parse::<i16>();
-        match &test {
-            Ok(ok) => ret_value = *ok,
-            Err(_e) => ret_value = -1,
-        }
-        if (ret_value != -1) && (ret_value >= min) && (ret_value <= max) {
-            break;
-        }
-        input = "".to_string();
+        check_number(input, min, max)
     }
-    return ret_value;
+}
+
+pub fn check_number(input: String, min: i16, max: i16) -> i16 {
+    match input.parse::<i16>() {
+        Ok(ok) if ok >= min && ok <= max => ok,
+        _ => panic!("Invalid number: {}", input),
+    }
 }
 
 // to input a boolean

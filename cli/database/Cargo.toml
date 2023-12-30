@@ -4,9 +4,11 @@ version = "0.2.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.31"
 postgres = "0.19.4"
 
-
+[dev-dependencies]
+rstest = "0.18.2"
 
 [profile.dev]
 opt-level = 0
