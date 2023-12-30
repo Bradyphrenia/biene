@@ -1,9 +1,6 @@
-use std::io::{BufRead, Write};
-
-use rstest::rstest;
-
 use database::cli::{date_string, input_number};
 use database::dbase::{db_execute, init_db};
+use rstest::rstest;
 
 #[test]
 fn works() {
