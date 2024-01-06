@@ -140,7 +140,7 @@ pub mod calculations {
     }
 
     pub fn netto_weight(weight: Weight, count: Count) -> f32 {
-        let mut weight_ = weight.boden * count.boden as f32
+        let  weight_ = weight.boden * count.boden as f32
             + weight.zarge * count.zarge as f32
             + weight.rahmen * count.rahmen as f32 * count.zarge as f32
             + weight.kissen * count.kissen as f32
