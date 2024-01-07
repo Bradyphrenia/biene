@@ -1,19 +1,22 @@
 use crate::hivetypes::calculations::{
-    BruttoWeight, FeedPresent, HiveTypes, NettoWeight, New, SetCurrentWeight, SetFeeder, Types,
+    BruttoWeight, FeedNeed, FeedPresent, HiveTypes, NettoWeight, New, SetCurrentWeight, SetFeeder,
+    Types,
 };
 
-pub mod feeding;
 mod hivetypes;
 
 pub fn main() {
     let mut testwrw = HiveTypes::new(Types::warre);
     testwrw.set_feeder(false);
-    testwrw.set_current_weight(40.0);
+    testwrw.set_current_weight(28.0);
     let weight = testwrw.netto_weight();
     println!("Nettogewicht der Warré-Beute ohne Fütterer: {weight} kg");
-    // println!("Futter noch in der Warré-Beute ohne Fütterer: {fwr} kg");
-    // println!("Sollgewicht der Warré-Beute ohne Fütterer nach dem Einfüttern: {bwrweight} kg");
-    // println!("Futter notwendig bei einem aktuellen Gewicht von 35 kg: {feedwr} Liter 1:1");
+    let present = testwrw.feed_present();
+    println!("Futter noch in der Warré-Beute ohne Fütterer: {present} kg");
+    let brutto = testwrw.brutto_weight();
+    println!("Sollgewicht der Warré-Beute ohne Fütterer nach dem Einfüttern: {brutto} kg");
+    let need = testwrw.feed_need();
+    println!("Futter notwendig bei einem aktuellen Gewicht von 35 kg: {need} Liter 1:1");
     // println!();
     // let testddw = DadantWeights::new();
     // let mut testddc = DadantCounts::new();
