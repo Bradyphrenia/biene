@@ -16,7 +16,7 @@ pub fn main() {
     let brutto = testwrw.brutto_weight();
     println!("Sollgewicht der Warré-Beute ohne Fütterer nach dem Einfüttern: {brutto} kg");
     let need = testwrw.feed_need();
-    println!("Futter notwendig bei einem aktuellen Gewicht von 35 kg: {need} Liter 1:1");
+    println!("Futter notwendig bei einem aktuellen Gewicht von 28 kg: {need} Liter 1:1");
     // println!();
     // let testddw = DadantWeights::new();
     // let mut testddc = DadantCounts::new();

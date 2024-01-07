@@ -1,7 +1,8 @@
 // modul for calculating the feedings etc.
 pub mod calculations {
-    use crate::hivetypes::calculations::Types::{dadant, deutschnormal, warre};
     use round::round;
+
+    use crate::hivetypes::calculations::Types::{dadant, deutschnormal, warre};
 
     pub enum Types {
         warre,
@@ -40,6 +41,7 @@ pub mod calculations {
     pub trait FeedNeed {
         fn feed_need(&self) -> f32;
     }
+
     pub struct HiveTypes {
         pub boden: (f32, i8),
         pub zarge: (f32, i8),
