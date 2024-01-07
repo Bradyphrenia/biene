@@ -4,6 +4,7 @@ pub mod calculations {
 
     use crate::hivetypes::calculations::Types::{dadant, deutschnormal, warre};
 
+    #[derive(Clone, Copy)]
     pub enum Types {
         warre,
         dadant,
