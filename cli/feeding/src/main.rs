@@ -7,7 +7,7 @@ mod hivetypes;
 
 /// Main function that calculates and prints various hive information for different types of hives.
 pub fn main() {
-    let weight = 28.0;
+    let weight = 30.0;
     for type_ in [Types::warre, Types::dadant, Types::deutschnormal] {
         let mut test_hive = HiveTypes::new(type_);
         let name = test_hive.return_hive_name();
