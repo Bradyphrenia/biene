@@ -43,6 +43,10 @@ pub mod calculations {
         fn feed_need(&self) -> f32;
     }
 
+    pub trait HiveName {
+        fn return_hive_name(&self) -> String;
+    }
+
     pub struct HiveTypes {
         pub boden: (f32, i8),
         pub zarge: (f32, i8),
@@ -161,6 +165,16 @@ pub mod calculations {
                 let feeding = 0.0;
                 feeding as f32
             };
+        }
+    }
+
+    impl HiveName for HiveTypes {
+        fn return_hive_name(&self) -> String {
+            match self.types {
+                Types::warre => return "Warré".to_string(),
+                Types::deutschnormal => return "Deutsch Normalmass".to_string(),
+                Types::dadant => return "Dadant".to_string(),
+            }
         }
     }
 }

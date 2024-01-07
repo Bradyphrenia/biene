@@ -1,21 +1,14 @@
 use crate::hivetypes::calculations::{
-    BruttoWeight, FeedNeed, FeedPresent, HiveTypes, NettoWeight, New, SetCurrentWeight, SetFeeder,
-    Types,
+    BruttoWeight, FeedNeed, FeedPresent, HiveName, HiveTypes, NettoWeight, New, SetCurrentWeight,
+    SetFeeder, Types,
 };
 
 mod hivetypes;
 
-fn type_name(types: Types) -> String {
-    match types {
-        Types::warre => return "Warré".to_string(),
-        Types::deutschnormal => return "Deutsch Normalmass".to_string(),
-        Types::dadant => return "Dadant".to_string(),
-    }
-}
 pub fn main() {
     for type_ in [Types::warre, Types::dadant, Types::deutschnormal] {
-        let name = type_name(type_);
         let mut test_hive = HiveTypes::new(type_);
+        let name = test_hive.return_hive_name();
         test_hive.set_feeder(false); // no feeder
         test_hive.set_current_weight(28.0); // set current weight to 28 kg
         let weight = test_hive.netto_weight();
