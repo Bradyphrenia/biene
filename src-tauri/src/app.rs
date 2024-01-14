@@ -20,9 +20,9 @@ pub fn init_app() -> App {
         .setup(|app| {
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
-              let window = app.get_window("main").unwrap();
-              window.open_devtools();
-              window.close_devtools();
+                let window = app.get_window("main").unwrap();
+                window.open_devtools();
+                window.close_devtools();
             }
             let main_window = app.get_window("main").unwrap();
             let handle = app.handle();

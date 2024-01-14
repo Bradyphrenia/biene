@@ -1,9 +1,6 @@
-
 use std::path::PathBuf;
 use tauri::Wry;
 use tauri_plugin_store::{with_store, JsonValue, StoreCollection};
-
-
 
 use crate::database::handler::connect;
 use crate::database::structs::Database;

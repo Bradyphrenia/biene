@@ -57,7 +57,8 @@ pub fn connect(
     PgConnection::establish(&format!(
         "postgres://{}:{}@{}:{}/{}",
         user, password, url, port, database,
-    )).ok()
+    ))
+    .ok()
 }
 
 // TODO: retun TauriResponse
