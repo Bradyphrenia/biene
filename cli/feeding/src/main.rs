@@ -7,12 +7,11 @@ use crate::hivetypes::calculations::{
 mod cli;
 mod hivetypes;
 
-fn feed_str(present: bool) -> String {
-    let feed = match present {
+fn feed_str(present: bool) -> &'static str {
+    match present {
         true => "mit",
         false => "ohne",
-    };
-    return feed.to_string();
+    }
 }
 
 /// Ask user to define hive type
