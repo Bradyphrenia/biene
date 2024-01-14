@@ -41,23 +41,30 @@ fn feeder_present() -> bool {
 
 /// Main function that calculates and prints various hive information for different types of hives.
 pub fn main() {
-    let hive_type = choose_hive_type();
-    let feeder = feeder_present();
-    let current_weight = input_number("kg?", 0, 100);
-    let mut hive_ = HiveTypes::new(hive_type);
-    let name = hive_.return_hive_name();
-    hive_.set_feeder(feeder); // feeder?
-    hive_.set_current_weight(current_weight as f32); // set current weight to ... kg
-    let weight = hive_.netto_weight();
-    let mit_ohne = feed_str(feeder);
-    println!("Nettogewicht der {name}-Beute {mit_ohne} Fütterer: {weight} kg");
-    let present = hive_.feed_present(); // calculate the amount of feed actually present
-    println!("Futter noch in der {name}-Beute {mit_ohne} Fütterer: {present} kg");
-    let brutto = hive_.brutto_weight(); // calculate what a hive should weight if already ready for wintering
-    println!("Sollgewicht der {name}-Beute {mit_ohne} Fütterer nach dem Einfüttern: {brutto} kg");
-    let need = hive_.feed_need(); // calculate the amount of sugar sirup 1:1
-    println!(
-        "Futter notwendig bei einem aktuellen Gewicht von {current_weight} kg: {need} Liter 1:1"
-    );
-    println!();
+    loop {
+        let hive_type = choose_hive_type();
+        let feeder = feeder_present();
+        let current_weight = input_number("kg?", 0, 100);
+        let mut hive_ = HiveTypes::new(hive_type);
+        let name = hive_.return_hive_name();
+        hive_.set_feeder(feeder); // feeder?
+        hive_.set_current_weight(current_weight as f32); // set current weight to ... kg
+        let weight = hive_.netto_weight();
+        let mit_ohne = feed_str(feeder);
+        println!("Nettogewicht der {name}-Beute {mit_ohne} Fütterer: {weight} kg");
+        let present = hive_.feed_present(); // calculate the amount of feed actually present
+        println!("Futter noch in der {name}-Beute {mit_ohne} Fütterer: {present} kg");
+        let brutto = hive_.brutto_weight(); // calculate what a hive should weight if already ready for wintering
+        println!(
+            "Sollgewicht der {name}-Beute {mit_ohne} Fütterer nach dem Einfüttern: {brutto} kg"
+        );
+        let need = hive_.feed_need(); // calculate the amount of sugar sirup 1:1
+        println!(
+            "Futter notwendig bei einem aktuellen Gewicht von {current_weight} kg: {need} Liter 1:1"
+        );
+        let again = input_string("neue Berechnung (j,n)?");
+        if again != "j" {
+            break;
+        }
+    }
 }
