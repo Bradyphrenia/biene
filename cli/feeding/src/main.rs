@@ -17,7 +17,7 @@ fn feed_str(present: bool) -> &'static str {
 /// Ask user to define hive type
 fn choose_hive_type() -> Types {
     loop {
-        let type_ = input_string("(d)adant, (n)ormalmaß, (w)arré?");
+        let type_ = input_string("Beutentyp [d]adant / [n]ormalmaß / [w]arré?");
         match type_.as_str() {
             "d" => return Types::dadant,
             "n" => return Types::deutschnormal,
@@ -29,7 +29,7 @@ fn choose_hive_type() -> Types {
 
 fn feeder_present() -> bool {
     loop {
-        let feed_ = input_string("Fütterer (j,n)?");
+        let feed_ = input_string("Fütterer [j]a / [n]ein?");
         match feed_.as_str() {
             "j" => return true,
             "n" => return false,
@@ -42,8 +42,8 @@ fn feeder_present() -> bool {
 pub fn main() {
     loop {
         let hive_type = choose_hive_type();
+        let current_weight = input_number("aktuelles Gewicht?", 0, 100);
         let feeder = feeder_present();
-        let current_weight = input_number("kg?", 0, 100);
         let mut hive_ = HiveTypes::new(hive_type);
         let name = hive_.return_hive_name();
         hive_.set_feeder(feeder); // feeder?
@@ -59,9 +59,9 @@ pub fn main() {
         );
         let need = hive_.feed_need(); // calculate the amount of sugar sirup 1:1
         println!(
-            "Futter notwendig bei einem aktuellen Gewicht von {current_weight} kg: {need} Liter 1:1"
+            "Futter notwendig bei einem aktuellen Gewicht von {current_weight} kg: {need} Liter 3:2"
         );
-        let again = input_string("neue Berechnung (j,n)?");
+        let again = input_string("neue Berechnung [j]a / [n]ein?");
         if again != "j" {
             break;
         }
