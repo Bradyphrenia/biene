@@ -1,4 +1,4 @@
-use crate::cli::small_cli::{input_bool, input_number, input_string};
+use crate::cli::small_cli::{input_number, input_string};
 use crate::hivetypes::calculations::{
     BruttoWeight, FeedNeed, FeedPresent, HiveName, HiveTypes, NettoWeight, New, SetCurrentWeight,
     SetFeeder, Types,
