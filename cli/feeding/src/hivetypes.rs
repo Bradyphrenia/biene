@@ -3,8 +3,10 @@ pub mod calculations {
     use round::round;
 
     use crate::hivetypes::calculations::Types::{dadant, deutschnormal, warre};
+    use std::fmt;
+    use std::fmt::Formatter;
 
-    #[derive(Clone, Copy)]
+    #[derive(Clone, Copy, Debug)]
     pub enum Types {
         warre,
         dadant,
@@ -175,6 +177,13 @@ pub mod calculations {
                 Types::deutschnormal => return "Deutsch Normalmass".to_string(),
                 Types::dadant => return "Dadant".to_string(),
             }
+        }
+    }
+
+
+    impl fmt::Display for HiveTypes {
+        fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+            write!(f, "{}-Beute hat {:?} Zarge(n) zu {:?} kg netto", self.return_hive_name(), self.zarge.1, self.zarge.0)
         }
     }
 }

@@ -61,6 +61,7 @@ pub fn main() {
         println!(
             "Futter notwendig bei einem aktuellen Gewicht von {current_weight} kg: {need} Liter 3:2"
         );
+        println!("{}", hive_);
         let again = input_string("neue Berechnung [j]a / [n]ein?");
         if again != "j" {
             break;
