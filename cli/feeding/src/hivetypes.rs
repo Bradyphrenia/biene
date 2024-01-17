@@ -174,16 +174,15 @@ pub mod calculations {
         fn return_hive_name(&self) -> String {
             match self.types {
                 Types::warre => return "Warré".to_string(),
-                Types::deutschnormal => return "Deutsch Normalmass".to_string(),
+                Types::deutschnormal => return "Deutsch-Normalmass".to_string(),
                 Types::dadant => return "Dadant".to_string(),
             }
         }
     }
 
-
     impl fmt::Display for HiveTypes {
         fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-            write!(f, "{}-Beute hat {:?} Zarge(n) zu {:?} kg netto", self.return_hive_name(), self.zarge.1, self.zarge.0)
+            write!(f, "{}-Beute", self.return_hive_name())
         }
     }
 }
