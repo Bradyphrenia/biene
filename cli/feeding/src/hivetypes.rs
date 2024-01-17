@@ -129,7 +129,6 @@ pub mod calculations {
             return weight_ as f32;
         }
     }
-
     impl BruttoWeight for HiveTypes {
         fn brutto_weight(&self) -> f32 {
             let weight = round(HiveTypes::netto_weight(&self) as f64 + 22.0, 2);
