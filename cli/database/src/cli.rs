@@ -1,3 +1,6 @@
+use chrono::prelude::*;
+
+
 // small cli :-)
 // to input a string
 pub fn input_string(prompt: &str) -> String {
@@ -10,16 +13,24 @@ pub fn input_string(prompt: &str) -> String {
     input
 }
 
+fn today_string(input: String) -> String {
+    if input.len() > 10 {
+        input[0..10].to_string()
+    } else {
+        "".to_string()
+    }
+}
+
 //to input a valid date string
 pub fn input_date(prompt: &str) -> String {
+    let date_as_string = Utc::now().to_string();
+    let today = today_string(date_as_string);
     let mut input = String::new();
-    loop {
-        input = input_string(prompt);
-        if date_string(&input) {
-            return input.to_string();
-        }
-        input = "".to_string();
-    }
+    input = input_string(prompt);
+    println!("{}", today);
+    if date_string(&input) {
+        return input.to_string();
+    } else { return today; }
 }
 
 // to input a number i16

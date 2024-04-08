@@ -5,7 +5,7 @@ use std::default::Default;
 pub fn init_db() -> Client {
     // TODO?: () <- parameters for database access
     let client = match Client::connect(
-        "postgresql://postgres:postgres@localhost:5432/biene_test",
+        "postgresql://postgres:postgres@localhost:5432/biene",
         NoTls,
     ) {
         Ok(client) => client,
