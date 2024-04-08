@@ -27,10 +27,11 @@ pub fn input_date(prompt: &str) -> String {
     let today = today_string(date_as_string);
     let mut input = String::new();
     input = input_string(prompt);
-    println!("{}", today);
     if date_string(&input) {
         return input.to_string();
-    } else { return today; }
+    } else {
+        println!("{}", today);
+        return today; }
 }
 
 // to input a number i16
