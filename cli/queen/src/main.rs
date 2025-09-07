@@ -34,10 +34,7 @@ fn parse_input_date() -> Result<NaiveDate, String> {
         if let Ok(d) = NaiveDate::parse_from_str(s, "%Y-%m-%d") {
             return Ok(d);
         }
-        if let Ok(d) = NaiveDate::parse_from_str(s, "%Y/%m/%d") {
-            return Ok(d);
-        }
-        if let Ok(d) = NaiveDate::parse_from_str(s, "%Y.%m.%d") {
+        if let Ok(d) = NaiveDate::parse_from_str(s, "%d.%m.%Y") {
             return Ok(d);
         }
         return Err(format!(
@@ -47,9 +44,15 @@ fn parse_input_date() -> Result<NaiveDate, String> {
     }
 
     if args.len() == 3 {
-        let year: i32 = args[0].parse().map_err(|_| "YEAR must be an integer".to_string())?;
-        let month: u32 = args[1].parse().map_err(|_| "MONTH must be an integer".to_string())?;
-        let day: u32 = args[2].parse().map_err(|_| "DAY must be an integer".to_string())?;
+        let year: i32 = args[0]
+            .parse()
+            .map_err(|_| "YEAR must be an integer".to_string())?;
+        let month: u32 = args[1]
+            .parse()
+            .map_err(|_| "MONTH must be an integer".to_string())?;
+        let day: u32 = args[2]
+            .parse()
+            .map_err(|_| "DAY must be an integer".to_string())?;
         if let Some(d) = NaiveDate::from_ymd_opt(year, month, day) {
             return Ok(d);
         } else {
@@ -57,7 +60,10 @@ fn parse_input_date() -> Result<NaiveDate, String> {
         }
     }
 
-    Err("Usage: queen [YYYY-MM-DD] or queen [YEAR MONTH DAY] (no args uses today's date)".to_string())
+    Err(
+        "Usage: queen [YYYY-MM-DD] or queen [YEAR MONTH DAY] (no args uses today's date)"
+            .to_string(),
+    )
 }
 
 fn main() {
