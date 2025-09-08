@@ -34,11 +34,12 @@ fn parse_input_date() -> Result<NaiveDate, String> {
         if let Ok(d) = NaiveDate::parse_from_str(s, "%Y-%m-%d") {
             return Ok(d);
         }
+        // German date style: DD.MM.YYYY
         if let Ok(d) = NaiveDate::parse_from_str(s, "%d.%m.%Y") {
             return Ok(d);
         }
         return Err(format!(
-            "Invalid date format '{}'. Use YYYY-MM-DD (e.g., 2025-07-14) or provide three args: YEAR MONTH DAY.",
+            "Invalid date format '{}'. Use YYYY-MM-DD (e.g., 2025-07-14) or DD.MM.YYYY (e.g., 14.07.2025); or provide three args: YEAR MONTH DAY.",
             s
         ));
     }
