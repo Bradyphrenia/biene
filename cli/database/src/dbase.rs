@@ -194,11 +194,9 @@ pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
 // ... existing code ...
 
 pub fn db_execute(sql: &str, mut client: Client) -> u64 {
-    // count of executed lines in the database table
-    match client.execute(sql, &[]) {
-        Ok(_lines) => _lines,
-        Err(..) => 0,
-    }
+    // Execute SQL statement and return the number of affected rows
+    let affected_rows = client.execute(sql, &[]).unwrap_or(0);
+    affected_rows
 }
 
 // ... existing code ...
