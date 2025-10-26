@@ -29,7 +29,7 @@ fn main() {
         transfer: default.clone(),
         emerge: default,
     };
-    breeding.queen_raring(2023, 7, 2);
+    breeding.queen_raring(2024, 5, 26);
     println!("Starting series on {}.", breeding.larva);
     println!("Caging cells on {}.", breeding.caging);
     println!("Transferring cells allowed on {}.", breeding.transfer);

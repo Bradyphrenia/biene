@@ -4,10 +4,8 @@ use std::default::Default;
 // initialize the database
 pub fn init_db() -> Client {
     // TODO?: () <- parameters for database access
-    let client = match Client::connect(
-        "postgresql://postgres:postgres@localhost:5432/biene",
-        NoTls,
-    ) {
+    let client = match Client::connect("postgresql://postgres:postgres@localhost:5432/biene", NoTls)
+    {
         Ok(client) => client,
         Err(_e) => panic!("{}", _e), // database out of reach -> i think it's ok to panic :-)
     };
@@ -193,13 +191,17 @@ pub fn durchsicht_fetchone(sql: &str, mut client: Client) -> Durchsicht {
 // returns 0 in case of an error happening, otherwise the lines affected
 // i hope this error handling and returning are clever :-)
 
+// ... existing code ...
+
 pub fn db_execute(sql: &str, mut client: Client) -> u64 {
-    // count of executed lines  in the database table
-    let _lines = match client.execute(sql, &[]) {
-        Ok(_lines) => return _lines,
-        Err(..) => return 0,
-    };
+    // count of executed lines in the database table
+    match client.execute(sql, &[]) {
+        Ok(_lines) => _lines,
+        Err(..) => 0,
+    }
 }
+
+// ... existing code ...
 
 // function to query multiple lines of data from the table "volk"
 
